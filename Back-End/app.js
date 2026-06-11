@@ -15,7 +15,7 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
-
+  
 
 //Import das ROTAS do projeto
 const produtoRoutes = require('./routes/produto.routes.js');
