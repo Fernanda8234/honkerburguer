@@ -19,8 +19,11 @@ app.use(cors(corsOptions))
 //Import das ROTAS do projeto
 const produtoRoutes = require('./routes/produto.routes.js');
 
+const tipoSaborRoutes = require('./routes/tipo_sabor.routes.js');
+
 //Importação dos endpoints com o .use
-app.use('/v1/senai/hamburgueria', produtoRoutes);
+app.use('/v1/senai/hamburgueria/produto', produtoRoutes);
+app.use('/v1/senai/hamburgueria/tipo_sabor', tipoSaborRoutes);
 
 //Seve para inicializar a API para receber requisições
 const PORT = process.env.PORT || 8080;

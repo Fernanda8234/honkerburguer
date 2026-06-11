@@ -10,31 +10,31 @@
 const config_message = require('../modulo/configMessage.js') 
 
 //Chama o DAO de produtos
-const produtoDAO = require('../../model/DAO/produto/produto.js')
+const tipoSaborDAO = require('../../model/DAO/tipo_sabor/tipo_sabor.js')
 
 //Faz a inserção de novos produtos
-const inserirNovoProduto = async function(produto, contentType){
+const inserirNovoTipoSabor = async function(tipoSabor, contentType){
 
     let message = JSON.parse(JSON.stringify(config_message))
     
     try{
     if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
 
-    let validar = await validarDados(produto)
+    let validar = await validarDados(tipoSabor)
 
     if(validar){
         return validar // 400
     }
     else{
 
-        let result = await produtoDAO.insertProduto(produto)
+        let result = await tipoSaborDAO.insertTipoSabor(tipoSabor)
 
         if(result){ // 201
-            produto.id = result
+            tipoSabor.id = result
             message.DEFAULT_MESSAGE.status      = message.SUCCESS_CREATED_ITEM.status
             message.DEFAULT_MESSAGE.status_code = message.SUCCESS_CREATED_ITEM.status_code
             message.DEFAULT_MESSAGE.message     = message.SUCCESS_CREATED_ITEM.message
-            message.DEFAULT_MESSAGE.response    = produto
+            message.DEFAULT_MESSAGE.response    = tipoSabor
         }else{ // 500
             return message.ERROR_INTERNAL_SERVER_MODEL // 500
         }
@@ -50,29 +50,29 @@ const inserirNovoProduto = async function(produto, contentType){
     }
 }
 
-const atualizarProduto = async function(produto, id, contentType){
+const atualizarTipoSabor = async function(tipoSabor, id, contentType){
     let message = JSON.parse(JSON.stringify(config_message))
     
     try{
 
         if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
 
-            let resultBuscarID = await buscarByIdProduto(id)
+            let resultBuscarID = await buscarByIdTipoSabor(id)
             
             if(resultBuscarID.status){
-                let validar = await validarDados(produto, contentType)
+                let validar = await validarDados(tipoSabor, contentType)
  
                 if(!validar){
 
-                    produto.id = id
+                    tipoSabor.id = id
 
-                    let result = await produtoDAO.updateProduto(produto)
+                    let result = await tipoSaborDAO.updateTipoSabor(tipoSabor)
 
                     if(result){
                         message.DEFAULT_MESSAGE.status      = message.SUCESS_UPDATED_ITEM.status
                         message.DEFAULT_MESSAGE.status_code = message.SUCESS_UPDATED_ITEM.status_code
                         message.DEFAULT_MESSAGE.message     = message.SUCESS_UPDATED_ITEM.message
-                        message.DEFAULT_MESSAGE.response    = produto
+                        message.DEFAULT_MESSAGE.response    = tipoSabor
                         return message.DEFAULT_MESSAGE //200 (Atualizado)
                     }else{
                         return message.ERROR_INTERNAL_SERVER_MODEL //500
@@ -93,13 +93,13 @@ const atualizarProduto = async function(produto, id, contentType){
     
 }
 
-const listarProduto = async function(){
+const listarTipoSabor = async function(){
 
     let message = JSON.parse(JSON.stringify(config_message))
 
     try {
         
-        let result = await produtoDAO.selectAllProduto()
+        let result = await tipoSaborDAO.selectAllTipoSabor()
 
         if(result){
             
@@ -107,7 +107,7 @@ const listarProduto = async function(){
                 message.DEFAULT_MESSAGE.status         = message.SUCESS_RESPONSE.status
                 message.DEFAULT_MESSAGE.status_code    = message.SUCESS_RESPONSE.status_code
                 message.DEFAULT_MESSAGE.response.count = result.length
-                message.DEFAULT_MESSAGE.response.produto = result
+                message.DEFAULT_MESSAGE.response.tipo_sabor = result
 
                 return message.DEFAULT_MESSAGE //200 
 
@@ -120,7 +120,7 @@ const listarProduto = async function(){
     }
 }
 
-const buscarByIdProduto = async function(id){
+const buscarByIdTipoSabor = async function(id){
      //Criando clone do objeto JSON para manipular a estrutura local sem modificar a estrutura original
     let message = JSON.parse(JSON.stringify(config_message))
 
@@ -130,13 +130,13 @@ const buscarByIdProduto = async function(id){
             message.ERROR_BAD_REQUEST.field = '[ID] INVÁLIDO'
             return message.ERROR_BAD_REQUEST // 400
         }else{
-            let result = await produtoDAO.selectByIdProduto(id)
+            let result = await tipoSaborDAO.selectByIdTipoSabor(id)
 
             if(result){
                 if(result.length > 0){
                     message.DEFAULT_MESSAGE.status          = message.SUCESS_RESPONSE.status
                     message.DEFAULT_MESSAGE.status_code     = message.SUCESS_RESPONSE.status_code
-                    message.DEFAULT_MESSAGE.response.produtos  = result
+                    message.DEFAULT_MESSAGE.response.tipo_sabor  = result
 
                     return message.DEFAULT_MESSAGE //200
                 }else{
@@ -149,17 +149,17 @@ const buscarByIdProduto = async function(id){
             return message.ERROR_INTERNAL_SERVER_CONTROLLER
         }
 }
-const excluirByIdProduto = async function(id){
+const excluirByIdTipoSabor = async function(id){
     let message = JSON.parse(JSON.stringify(config_message))
 
     try{
         //Validação do erro 400 e do 404
 
-        let resultBuscarID = await buscarByIdProduto(id)
+        let resultBuscarID = await buscarByIdTipoSabor(id)
 
         if(resultBuscarID.status){
             
-            let result = await produtoDAO.deleteByIdProduto(id)
+            let result = await tipoSaborDAO.deleteByIdTipoSabor(id)
 
             if(result){
                 return  message.SUCESS_DELETED_ITEM //200 (Registro excluido)
@@ -175,54 +175,26 @@ const excluirByIdProduto = async function(id){
     }
 }
 
-const validarDados = async function(produto) {
+const validarDados = async function(tipoSabor) {
     let message = JSON.parse(JSON.stringify(config_message));
 
-    if (!produto.nome || produto.nome.length > 255) {
+    if (tipoSabor.blend === undefined || tipoSabor.blend === null || tipoSabor.blend === '' || isNaN(tipoSabor.blend)) {
+        message.ERROR_BAD_REQUEST.field = '[BLEND] INVÁLIDO';
+        return message.ERROR_BAD_REQUEST;
+    }
+    else if (tipoSabor.nome === undefined || tipoSabor.nome === null || tipoSabor.nome === '' || tipoSabor.nome.length > 255) {
         message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO (Tamanho máximo 255)';
-        return message.ERROR_BAD_REQUEST;
-    }
-    else if (!produto.preco || isNaN(produto.preco) || produto.preco < 0) {
-        message.ERROR_BAD_REQUEST.field = '[PREÇO] INVÁLIDO';
-        return message.ERROR_BAD_REQUEST;
-    }
-    else if (!produto.url_imagem || produto.url_imagem.length > 255) {
-        message.ERROR_BAD_REQUEST.field = '[URL_IMAGEM] INVÁLIDO (Tamanho máximo 255)';
-        return message.ERROR_BAD_REQUEST;
-    }
-    else if (!produto.descricao) {
-        message.ERROR_BAD_REQUEST.field = '[DESCRICAO] INVÁLIDO';
-        return message.ERROR_BAD_REQUEST;
-    }
-    else if (produto.disponibilidade === undefined || produto.disponibilidade === null || isNaN(produto.disponibilidade) || (produto.disponibilidade !== 0 && produto.disponibilidade !== 1)) {
-        message.ERROR_BAD_REQUEST.field = '[DISPONIBILIDADE] INVÁLIDO (Use 0 ou 1)';
-        return message.ERROR_BAD_REQUEST;
-    }
-    else if (produto.desconto !== null && produto.desconto !== undefined && isNaN(produto.desconto)) {
-        message.ERROR_BAD_REQUEST.field = '[DESCONTO] INVÁLIDO';
-        return message.ERROR_BAD_REQUEST;
-    }
-    else if (produto.data_inicio_campanha && isNaN(Date.parse(produto.data_inicio_campanha))) {
-        message.ERROR_BAD_REQUEST.field = '[DATA_INICIO_CAMPANHA] INVÁLIDO';
-        return message.ERROR_BAD_REQUEST;
-    }
-    else if (produto.data_fim_campanha && isNaN(Date.parse(produto.data_fim_campanha))) {
-        message.ERROR_BAD_REQUEST.field = '[DATA_FIM_CAMPANHA] INVÁLIDO';
-        return message.ERROR_BAD_REQUEST;
-    }
-    else if (!produto.classificacao_alimentar || produto.classificacao_alimentar.length > 50) {
-        message.ERROR_BAD_REQUEST.field = '[CLASSIFICACAO_ALIMENTAR] INVÁLIDO';
         return message.ERROR_BAD_REQUEST;
     }
     else{
     return false
-    } 
+    }
 }
 
 module.exports = {
-    inserirNovoProduto,
-    listarProduto,
-    buscarByIdProduto,
-    excluirByIdProduto,
-    atualizarProduto
+    inserirNovoTipoSabor,
+    listarTipoSabor,
+    buscarByIdTipoSabor,
+    excluirByIdTipoSabor,
+    atualizarTipoSabor
 }
