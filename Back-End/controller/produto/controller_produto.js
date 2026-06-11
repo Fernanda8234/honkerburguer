@@ -2,12 +2,12 @@
  * Objetivo: Arquivo responsável pela validação, tratamento e
  *          Manipulação de dados para o CRUD de produto
  * Data: 11/06/2026
- * Autor: Matheus Aguiar
- * Versão: 1.11.06
+ * Autor: Fernanda Mota
+ * Versão: 1.11.07
 ****************************************************************/
 
 //Arquivo de configuração de mensagens
-const config_message = require('../modulo/configMessage.js') 
+const config_message = require('../modulo/configMessages.js') 
 
 //Chama o DAO de produtos
 const produtoDAO = require('../../model/DAO/produto/produto.js')
@@ -45,7 +45,6 @@ const inserirNovoProduto = async function(produto, contentType){
         return message.ERROR_CONTENT_TYPE // 415    
     }
     }catch (error){
-        console.log(error)
         return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500 (controller)
     }
 }
@@ -69,9 +68,9 @@ const atualizarProduto = async function(produto, id, contentType){
                     let result = await produtoDAO.updateProduto(produto)
 
                     if(result){
-                        message.DEFAULT_MESSAGE.status      = message.SUCESS_UPDATED_ITEM.status
-                        message.DEFAULT_MESSAGE.status_code = message.SUCESS_UPDATED_ITEM.status_code
-                        message.DEFAULT_MESSAGE.message     = message.SUCESS_UPDATED_ITEM.message
+                        message.DEFAULT_MESSAGE.status      = message.SUCCESS_UPDATED_ITEM.status
+                        message.DEFAULT_MESSAGE.status_code = message.SUCCESS_UPDATED_ITEM.status_code
+                        message.DEFAULT_MESSAGE.message     = message.SUCCESS_UPDATED_ITEM.message
                         message.DEFAULT_MESSAGE.response    = produto
                         return message.DEFAULT_MESSAGE //200 (Atualizado)
                     }else{
@@ -104,8 +103,8 @@ const listarProduto = async function(){
         if(result){
             
             if(result.length > 0 ){
-                message.DEFAULT_MESSAGE.status         = message.SUCESS_RESPONSE.status
-                message.DEFAULT_MESSAGE.status_code    = message.SUCESS_RESPONSE.status_code
+                message.DEFAULT_MESSAGE.status         = message.SUCCESS_RESPONSE.status
+                message.DEFAULT_MESSAGE.status_code    = message.SUCCESS_RESPONSE.status_code
                 message.DEFAULT_MESSAGE.response.count = result.length
                 message.DEFAULT_MESSAGE.response.produto = result
 
@@ -134,15 +133,15 @@ const buscarByIdProduto = async function(id){
 
             if(result){
                 if(result.length > 0){
-                    message.DEFAULT_MESSAGE.status          = message.SUCESS_RESPONSE.status
-                    message.DEFAULT_MESSAGE.status_code     = message.SUCESS_RESPONSE.status_code
+                    message.DEFAULT_MESSAGE.status          = message.SUCCESS_RESPONSE.status
+                    message.DEFAULT_MESSAGE.status_code     = message.SUCCESS_RESPONSE.status_code
                     message.DEFAULT_MESSAGE.response.produtos  = result
 
                     return message.DEFAULT_MESSAGE //200
                 }else{
                     return message.ERROR_NOT_FOUND //404
                 }
-            }else result = message.ERROR_INTERNAL_SERVER_MODEL // 500 (model)
+            }else return message.ERROR_INTERNAL_SERVER_MODEL // 500 (model)
         }
 
         } catch (error) {
@@ -162,7 +161,11 @@ const excluirByIdProduto = async function(id){
             let result = await produtoDAO.deleteByIdProduto(id)
 
             if(result){
-                return  message.SUCESS_DELETED_ITEM //200 (Registro excluido)
+                message.DEFAULT_MESSAGE.status      = message.SUCCESS_DELETED_ITEM.status
+                message.DEFAULT_MESSAGE.status_code = message.SUCCESS_DELETED_ITEM.status_code
+                message.DEFAULT_MESSAGE.message     = message.SUCCESS_DELETED_ITEM.message
+
+                return message.DEFAULT_MESSAGE //200 (Registro excluido)
             }else{
                 return message.ERROR_INTERNAL_SERVER_MODEL//500 (model)
             }
@@ -176,43 +179,43 @@ const excluirByIdProduto = async function(id){
 }
 
 const validarDados = async function(produto) {
-    let message = JSON.parse(JSON.stringify(config_message));
+    let message = JSON.parse(JSON.stringify(config_message))
 
     if (!produto.nome || produto.nome.length > 255) {
-        message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO (Tamanho máximo 255)';
-        return message.ERROR_BAD_REQUEST;
+        message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO (Tamanho máximo 255)'
+        return message.ERROR_BAD_REQUEST
     }
     else if (!produto.preco || isNaN(produto.preco) || produto.preco < 0) {
-        message.ERROR_BAD_REQUEST.field = '[PREÇO] INVÁLIDO';
-        return message.ERROR_BAD_REQUEST;
+        message.ERROR_BAD_REQUEST.field = '[PREÇO] INVÁLIDO'
+        return message.ERROR_BAD_REQUEST
     }
     else if (!produto.url_imagem || produto.url_imagem.length > 255) {
-        message.ERROR_BAD_REQUEST.field = '[URL_IMAGEM] INVÁLIDO (Tamanho máximo 255)';
-        return message.ERROR_BAD_REQUEST;
+        message.ERROR_BAD_REQUEST.field = '[URL_IMAGEM] INVÁLIDO (Tamanho máximo 255)'
+        return message.ERROR_BAD_REQUEST
     }
     else if (!produto.descricao) {
-        message.ERROR_BAD_REQUEST.field = '[DESCRICAO] INVÁLIDO';
-        return message.ERROR_BAD_REQUEST;
+        message.ERROR_BAD_REQUEST.field = '[DESCRICAO] INVÁLIDO'
+        return message.ERROR_BAD_REQUEST
     }
     else if (produto.disponibilidade === undefined || produto.disponibilidade === null || isNaN(produto.disponibilidade) || (produto.disponibilidade !== 0 && produto.disponibilidade !== 1)) {
-        message.ERROR_BAD_REQUEST.field = '[DISPONIBILIDADE] INVÁLIDO (Use 0 ou 1)';
-        return message.ERROR_BAD_REQUEST;
+        message.ERROR_BAD_REQUEST.field = '[DISPONIBILIDADE] INVÁLIDO (Use 0 ou 1)'
+        return message.ERROR_BAD_REQUEST
     }
     else if (produto.desconto !== null && produto.desconto !== undefined && isNaN(produto.desconto)) {
-        message.ERROR_BAD_REQUEST.field = '[DESCONTO] INVÁLIDO';
-        return message.ERROR_BAD_REQUEST;
+        message.ERROR_BAD_REQUEST.field = '[DESCONTO] INVÁLIDO'
+        return message.ERROR_BAD_REQUEST
     }
     else if (produto.data_inicio_campanha && isNaN(Date.parse(produto.data_inicio_campanha))) {
-        message.ERROR_BAD_REQUEST.field = '[DATA_INICIO_CAMPANHA] INVÁLIDO';
-        return message.ERROR_BAD_REQUEST;
+        message.ERROR_BAD_REQUEST.field = '[DATA_INICIO_CAMPANHA] INVÁLIDO'
+        return message.ERROR_BAD_REQUEST
     }
     else if (produto.data_fim_campanha && isNaN(Date.parse(produto.data_fim_campanha))) {
-        message.ERROR_BAD_REQUEST.field = '[DATA_FIM_CAMPANHA] INVÁLIDO';
-        return message.ERROR_BAD_REQUEST;
+        message.ERROR_BAD_REQUEST.field = '[DATA_FIM_CAMPANHA] INVÁLIDO'
+        return message.ERROR_BAD_REQUEST
     }
     else if (!produto.classificacao_alimentar || produto.classificacao_alimentar.length > 50) {
-        message.ERROR_BAD_REQUEST.field = '[CLASSIFICACAO_ALIMENTAR] INVÁLIDO';
-        return message.ERROR_BAD_REQUEST;
+        message.ERROR_BAD_REQUEST.field = '[CLASSIFICACAO_ALIMENTAR] INVÁLIDO'
+        return message.ERROR_BAD_REQUEST
     }
     else{
     return false
