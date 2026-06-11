@@ -2,12 +2,12 @@
  * Objetivo: Arquivo responsável pela validação, tratamento e
  *          Manipulação de dados para o CRUD de produto
  * Data: 11/06/2026
- * Autor: Matheus Aguiar
- * Versão: 1.11.06
+ * Autor: Fernanda Mota
+ * Versão: 1.11.07
 ****************************************************************/
 
 //Arquivo de configuração de mensagens
-const config_message = require('../modulo/configMessage.js') 
+const config_message = require('../modulo/configMessages.js') 
 
 //Chama o DAO de produtos
 const tipoSaborDAO = require('../../model/DAO/tipo_sabor/tipo_sabor.js')
@@ -69,9 +69,9 @@ const atualizarTipoSabor = async function(tipoSabor, id, contentType){
                     let result = await tipoSaborDAO.updateTipoSabor(tipoSabor)
 
                     if(result){
-                        message.DEFAULT_MESSAGE.status      = message.SUCESS_UPDATED_ITEM.status
-                        message.DEFAULT_MESSAGE.status_code = message.SUCESS_UPDATED_ITEM.status_code
-                        message.DEFAULT_MESSAGE.message     = message.SUCESS_UPDATED_ITEM.message
+                        message.DEFAULT_MESSAGE.status      = message.SUCCESS_UPDATED_ITEM.status
+                        message.DEFAULT_MESSAGE.status_code = message.SUCCESS_UPDATED_ITEM.status_code
+                        message.DEFAULT_MESSAGE.message     = message.SUCCESS_UPDATED_ITEM.message
                         message.DEFAULT_MESSAGE.response    = tipoSabor
                         return message.DEFAULT_MESSAGE //200 (Atualizado)
                     }else{
@@ -87,7 +87,6 @@ const atualizarTipoSabor = async function(tipoSabor, id, contentType){
             return message.ERROR_CONTENT_TYPE // 415
         }
     }catch (error){
-        console.log(error)
         return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500 (Controller)
     }
     
@@ -104,8 +103,8 @@ const listarTipoSabor = async function(){
         if(result){
             
             if(result.length > 0 ){
-                message.DEFAULT_MESSAGE.status         = message.SUCESS_RESPONSE.status
-                message.DEFAULT_MESSAGE.status_code    = message.SUCESS_RESPONSE.status_code
+                message.DEFAULT_MESSAGE.status         = message.SUCCESS_RESPONSE.status
+                message.DEFAULT_MESSAGE.status_code    = message.SUCCESS_RESPONSE.status_code
                 message.DEFAULT_MESSAGE.response.count = result.length
                 message.DEFAULT_MESSAGE.response.tipo_sabor = result
 
@@ -134,21 +133,22 @@ const buscarByIdTipoSabor = async function(id){
 
             if(result){
                 if(result.length > 0){
-                    message.DEFAULT_MESSAGE.status          = message.SUCESS_RESPONSE.status
-                    message.DEFAULT_MESSAGE.status_code     = message.SUCESS_RESPONSE.status_code
+                    message.DEFAULT_MESSAGE.status          = message.SUCCESS_RESPONSE.status
+                    message.DEFAULT_MESSAGE.status_code     = message.SUCCESS_RESPONSE.status_code
                     message.DEFAULT_MESSAGE.response.tipo_sabor  = result
 
                     return message.DEFAULT_MESSAGE //200
                 }else{
                     return message.ERROR_NOT_FOUND //404
                 }
-            }else result = message.ERROR_INTERNAL_SERVER_MODEL // 500 (model)
+            }else return message.ERROR_INTERNAL_SERVER_MODEL // 500 (model)
         }
 
         } catch (error) {
             return message.ERROR_INTERNAL_SERVER_CONTROLLER
         }
 }
+
 const excluirByIdTipoSabor = async function(id){
     let message = JSON.parse(JSON.stringify(config_message))
 
@@ -162,7 +162,11 @@ const excluirByIdTipoSabor = async function(id){
             let result = await tipoSaborDAO.deleteByIdTipoSabor(id)
 
             if(result){
-                return  message.SUCESS_DELETED_ITEM //200 (Registro excluido)
+                message.DEFAULT_MESSAGE.status      = message.SUCCESS_DELETED_ITEM.status
+                message.DEFAULT_MESSAGE.status_code = message.SUCCESS_DELETED_ITEM.status_code
+                message.DEFAULT_MESSAGE.message     = message.SUCCESS_DELETED_ITEM.message
+
+                return message.DEFAULT_MESSAGE //200 (Registro excluido)
             }else{
                 return message.ERROR_INTERNAL_SERVER_MODEL//500 (model)
             }
@@ -176,18 +180,18 @@ const excluirByIdTipoSabor = async function(id){
 }
 
 const validarDados = async function(tipoSabor) {
-    let message = JSON.parse(JSON.stringify(config_message));
+    let message = JSON.parse(JSON.stringify(config_message))
 
     if (tipoSabor.blend === undefined || tipoSabor.blend === null || tipoSabor.blend === '' || isNaN(tipoSabor.blend)) {
-        message.ERROR_BAD_REQUEST.field = '[BLEND] INVÁLIDO';
-        return message.ERROR_BAD_REQUEST;
+        message.ERROR_BAD_REQUEST.field = '[BLEND] INVÁLIDO'
+        return message.ERROR_BAD_REQUEST
     }
     else if (tipoSabor.nome === undefined || tipoSabor.nome === null || tipoSabor.nome === '' || tipoSabor.nome.length > 255) {
-        message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO (Tamanho máximo 255)';
-        return message.ERROR_BAD_REQUEST;
+        message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO (Tamanho máximo 255)'
+        return message.ERROR_BAD_REQUEST
     }
     else{
-    return false
+        return false
     }
 }
 
