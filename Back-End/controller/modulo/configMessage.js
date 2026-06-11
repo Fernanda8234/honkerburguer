@@ -1,14 +1,14 @@
 /*********************************************************************************
  * Objetivo: Arquivo responsável pela configuração e padronização das mensagens
  *      da API
- * Data:    17/04/2026
+ * Data:    11/06/2026
  * Autor:   Matheus Aguiar
- * Versão:  1.0
+ * Versão:  1.11.06
 *********************************************************************************/
 
 //Padronização de cabeçalho para retorno dos endpoints da API
 const DEFAULT_MESSAGE = {
-    api_description:    'API para gerenciar o controle de filmes',
+    api_description:    'API para gerenciar o controle de uma hamburgueria',
     development:        'Matheus Aguiar',
     version:            '1.0.4.26',
     status:             Boolean,
@@ -23,7 +23,6 @@ const ERROR_INTERNAL_SERVER_MODEL       = {status: false, status_code: 500, mess
 const ERROR_INTERNAL_SERVER_CONTROLLER  = {status: false, status_code: 500, message: 'Não foi possivel processar a requisição por conta de erro na API [ERRO NA CONTROLLER].'}
 const ERROR_CONTENT_TYPE                = {status: false, status_code: 415, message: 'Não foi possivel processar a requisição, pois o formato de dados aceito pela API é somente JSON.'}
 const ERROR_NOT_FOUND                   = {status: false, status_code: 404, message: 'Não foi encontrado nenhum dado para retorno'}
-
 
 //Mensagens de sucesso da API
 const SUCCESS_CREATED_ITEM      = {status: true, status_code: 201, message: 'Registro inserido com sucesso!'} // Mensagem de sucesso da API

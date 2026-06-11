@@ -1,0 +1,227 @@
+/****************************************************************
+ * Objetivo: Arquivo responsável pela validação, tratamento e
+ *          Manipulação de dados para o CRUD de produto
+ * Data: 11/06/2026
+ * Autor: Matheus Aguiar
+ * Versão: 1.11.06
+****************************************************************/
+
+//Arquivo de configuração de mensagens
+const config_message = require('../modulo/configMessage.js') 
+
+//Chama o DAO de produtos
+const produtoDAO = require('../../model/DAO/produto/produto.js')
+
+//Faz a inserção de novos produtos
+const inserirNovoProduto = async function(produto, contentType){
+
+    let message = JSON.parse(JSON.stringify(config_message))
+    
+    try{
+    if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
+
+    let validar = await validarDados(produto)
+
+    if(validar){
+        return validar // 400
+    }
+    else{
+
+        let result = await produtoDAO.insertProduto(produto)
+
+        if(result){ // 201
+            produto.id = result
+            message.DEFAULT_MESSAGE.status      = message.SUCCESS_CREATED_ITEM.status
+            message.DEFAULT_MESSAGE.status_code = message.SUCCESS_CREATED_ITEM.status_code
+            message.DEFAULT_MESSAGE.message     = message.SUCCESS_CREATED_ITEM.message
+            message.DEFAULT_MESSAGE.response    = produto
+        }else{ // 500
+            return message.ERROR_INTERNAL_SERVER_MODEL // 500
+        }
+
+        return message.DEFAULT_MESSAGE
+        }
+    }else{
+        return message.ERROR_CONTENT_TYPE // 415    
+    }
+    }catch (error){
+        console.log(error)
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500 (controller)
+    }
+}
+
+const atualizarProduto = async function(produto, id, contentType){
+    let message = JSON.parse(JSON.stringify(config_message))
+    
+    try{
+
+        if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
+
+            let resultBuscarID = await buscarByIdProduto(id)
+            
+            if(resultBuscarID.status){
+                let validar = await validarDados(produto, contentType)
+ 
+                if(!validar){
+
+                    produto.id = id
+
+                    let result = await produtoDAO.updateProduto(produto)
+
+                    if(result){
+                        message.DEFAULT_MESSAGE.status      = message.SUCESS_UPDATED_ITEM.status
+                        message.DEFAULT_MESSAGE.status_code = message.SUCESS_UPDATED_ITEM.status_code
+                        message.DEFAULT_MESSAGE.message     = message.SUCESS_UPDATED_ITEM.message
+                        message.DEFAULT_MESSAGE.response    = produto
+                        return message.DEFAULT_MESSAGE //200 (Atualizado)
+                    }else{
+                        return message.ERROR_INTERNAL_SERVER_MODEL //500
+                    }
+                }else{
+                    return validar //400
+                }
+            }else{
+                return resultBuscarID // 400 ou 404 ou 500
+            }
+        }else{
+            return message.ERROR_CONTENT_TYPE // 415
+        }
+    }catch (error){
+        console.log(error)
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500 (Controller)
+    }
+    
+}
+
+const listarProduto = async function(){
+
+    let message = JSON.parse(JSON.stringify(config_message))
+
+    try {
+        
+        let result = await produtoDAO.selectAllProduto()
+
+        if(result){
+            
+            if(result.length > 0 ){
+                message.DEFAULT_MESSAGE.status         = message.SUCESS_RESPONSE.status
+                message.DEFAULT_MESSAGE.status_code    = message.SUCESS_RESPONSE.status_code
+                message.DEFAULT_MESSAGE.response.count = result.length
+                message.DEFAULT_MESSAGE.response.produto = result
+
+                return message.DEFAULT_MESSAGE //200 
+
+            }else return message.ERROR_NOT_FOUND //404  
+
+        }else return message.ERROR_INTERNAL_SERVER_MODEL //500 (model)
+
+    } catch (error) {
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER //500 (controller) 
+    }
+}
+
+const buscarByIdProduto = async function(id){
+     //Criando clone do objeto JSON para manipular a estrutura local sem modificar a estrutura original
+    let message = JSON.parse(JSON.stringify(config_message))
+
+        try {
+            //Validação para garantir que o ID seja válido
+            if(id == undefined || id == '' || id == null || isNaN(id)){
+            message.ERROR_BAD_REQUEST.field = '[ID] INVÁLIDO'
+            return message.ERROR_BAD_REQUEST // 400
+        }else{
+            let result = await produtoDAO.selectByIdProduto(id)
+
+            if(result){
+                if(result.length > 0){
+                    message.DEFAULT_MESSAGE.status          = message.SUCESS_RESPONSE.status
+                    message.DEFAULT_MESSAGE.status_code     = message.SUCESS_RESPONSE.status_code
+                    message.DEFAULT_MESSAGE.response.produtos  = result
+
+                    return message.DEFAULT_MESSAGE //200
+                }else{
+                    return message.ERROR_NOT_FOUND //404
+                }
+            }else result = message.ERROR_INTERNAL_SERVER_MODEL // 500 (model)
+        }
+
+        } catch (error) {
+            return message.ERROR_INTERNAL_SERVER_CONTROLLER
+        }
+}
+const excluirByIdProduto = async function(id){
+    let message = JSON.parse(JSON.stringify(config_message))
+
+    try{
+        //Validação do erro 400 e do 404
+
+        let resultBuscarID = await buscarByIdProduto(id)
+
+        if(resultBuscarID.status){
+            
+            let result = await produtoDAO.deleteByIdProduto(id)
+
+            if(result){
+                return  message.SUCESS_DELETED_ITEM //200 (Registro excluido)
+            }else{
+                return message.ERROR_INTERNAL_SERVER_MODEL//500 (model)
+            }
+        }else{
+            return resultBuscarID // 400 ou 404
+        }
+
+    }catch (error){
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER //500 (Controller)
+    }
+}
+
+const validarDados = async function(produto) {
+    let message = JSON.parse(JSON.stringify(config_message));
+
+    if (!produto.nome || produto.nome.length > 255) {
+        message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO (Tamanho máximo 255)';
+        return message.ERROR_BAD_REQUEST;
+    }
+    else if (!produto.preco || isNaN(produto.preco) || produto.preco < 0) {
+        message.ERROR_BAD_REQUEST.field = '[PREÇO] INVÁLIDO';
+        return message.ERROR_BAD_REQUEST;
+    }
+    else if (!produto.url_imagem || produto.url_imagem.length > 255) {
+        message.ERROR_BAD_REQUEST.field = '[URL_IMAGEM] INVÁLIDO (Tamanho máximo 255)';
+        return message.ERROR_BAD_REQUEST;
+    }
+    else if (!produto.descricao) {
+        message.ERROR_BAD_REQUEST.field = '[DESCRICAO] INVÁLIDO';
+        return message.ERROR_BAD_REQUEST;
+    }
+    else if (produto.disponibilidade === undefined || produto.disponibilidade === null || isNaN(produto.disponibilidade) || (produto.disponibilidade !== 0 && produto.disponibilidade !== 1)) {
+        message.ERROR_BAD_REQUEST.field = '[DISPONIBILIDADE] INVÁLIDO (Use 0 ou 1)';
+        return message.ERROR_BAD_REQUEST;
+    }
+    else if (produto.desconto !== null && produto.desconto !== undefined && isNaN(produto.desconto)) {
+        message.ERROR_BAD_REQUEST.field = '[DESCONTO] INVÁLIDO';
+        return message.ERROR_BAD_REQUEST;
+    }
+    else if (produto.data_inicio_campanha && isNaN(Date.parse(produto.data_inicio_campanha))) {
+        message.ERROR_BAD_REQUEST.field = '[DATA_INICIO_CAMPANHA] INVÁLIDO';
+        return message.ERROR_BAD_REQUEST;
+    }
+    else if (produto.data_fim_campanha && isNaN(Date.parse(produto.data_fim_campanha))) {
+        message.ERROR_BAD_REQUEST.field = '[DATA_FIM_CAMPANHA] INVÁLIDO';
+        return message.ERROR_BAD_REQUEST;
+    }
+    else if (!produto.classificacao_alimentar || produto.classificacao_alimentar.length > 50) {
+        message.ERROR_BAD_REQUEST.field = '[CLASSIFICACAO_ALIMENTAR] INVÁLIDO';
+        return message.ERROR_BAD_REQUEST;
+    }
+    
+    return false; // Se tudo estiver ok, retorna false (sem erro)
+}
+
+module.exports = {
+    inserirNovoProduto,
+    listarProduto,
+    buscarByIdProduto,
+    excluirByIdProduto,
+    atualizarProduto
+}
