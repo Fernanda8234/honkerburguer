@@ -16,6 +16,15 @@ create table tbl_administrador(
     unique (email)
 );
 
+	#alteração feita para tornar a data da criação da conta, um atributo 
+	#que é preenchido automativamente pelo banco de dados
+	#alteração feita por: aryely
+alter table tbl_administrador
+modify column criacao_conta DATE NOT NULL DEFAULT (CURRENT_DATE);
+
+select * from tbl_administrador;
+DESCRIBE tbl_administrador; #verifica se o atributo cricao_conta realmente se tornou um current date
+
 create table tbl_produto(
 	id         				int not null primary key auto_increment,
 	nome                    varchar(255) not null,
