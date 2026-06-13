@@ -38,6 +38,22 @@ form{
     gap: 10px;
 }
 
+input[type="file"]{
+    display: none;
+}
+
+#preview{
+    width: 400px;
+}
+
+label{
+    font-size: 25px;
+}
+
+input{
+    font-size: 18px;
+}
+
 .campo{
     align-self: flex-start;
     margin-left: 5px;
@@ -93,17 +109,13 @@ input[type="checkbox"]{
     font-family: "Bebas Neue", sans-serif;
 }
 
-label, input{
-    font-size: 25px;
-}
-
 input, button{
     border: 1px solid rgb(0, 0, 0);
     border-radius: 6px;
     height: 40px;
 }
 
-button, input[type="checkbox"]{
+button, input[type="checkbox"], #preview{
     cursor: pointer;
 }
 

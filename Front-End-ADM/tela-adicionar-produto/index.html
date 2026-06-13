@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/resete.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <title>Área Administrativa</title>
+</head>
+<body>
+    <header>
+        <img src="../img/menu.png" alt="">
+
+        <button id="cancelar">Cancelar</button>
+    </header>
+    <main>
+        <div class="container">
+            <form>
+
+                <label for="foto" class="produto">
+                    <img id="preview" src="../img/add produto.png">
+                    <input id="foto" type="file" accept="image/*">
+                </label>
+    
+                <label class="campo" for="nome">Nome</label>
+                <input type="text" id="nome" placeholder="Super Burguer">
+
+                <label class="campo" for="descricao">Descrição</label>
+                <textarea name="descricao" rows="20" placeholder="Hambúrguer artesanal de 180g com cheddar, bacon crocante, alface, tomate e molho especial dos heróis."></textarea>
+
+                <label class="campo" for="preco">Preço</label>
+                <input type="number" placeholder="34.90" step="0.01">
+
+                <label class="campo">Categoria</label>
+
+                <label class="checkbox-custom">
+                    <input type="checkbox" name="categoria" value="hamburguer">
+                    <span class="checkmark"></span>
+                    Hambúrguer
+                </label>
+
+                <label class="checkbox-custom">
+                    <input type="checkbox" name="categoria" value="vegano">
+                    <span class="checkmark"></span>
+                    Vegano
+                </label>
+
+                <label class="checkbox-custom">
+                    <input type="checkbox" name="categoria" value="apimentado">
+                    <span class="checkmark"></span>
+                    Apimentado
+                </label>
+
+                <label class="checkbox-custom">
+                    <input type="checkbox" name="categoria" value="especial">
+                    <span class="checkmark"></span>
+                    Especial
+                </label>
+
+                    <button id="salvar">Salvar</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
