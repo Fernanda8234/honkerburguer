@@ -3,7 +3,7 @@ const router        = express.Router()
 const bodyParser    = require('body-parser')
 
 //Importando arquivo administrador da controller
-const admController = require('../controller/administrador/controller_administrador');
+const administradorController = require('../controller/administrador/controller_administrador');
 
 //Endpoint para inserir um novo ADM
 router.post('/', bodyParser.json(), async function(request, response){
@@ -13,7 +13,7 @@ router.post('/', bodyParser.json(), async function(request, response){
     //Recebe o content type da requisição para validar se é um JSON
     let contentType = request.headers['content-type'] 
 
-    let result = await admController.inserirNovoAdm(dados, contentType)
+    let result = await administradorController.inserirNovoAdm(dados, contentType)
 
     response.status(result.status_code)
     response.json(result)
@@ -21,7 +21,7 @@ router.post('/', bodyParser.json(), async function(request, response){
 
 //Endpoint para listar todas os ADM's
 router.get('/', async function(request, response){
-    let result = await admController.listarAdm()
+    let result = await administradorController.listarAdm()
 
     response.status(result.status_code)
     response.json(result)
@@ -31,7 +31,7 @@ router.get('/', async function(request, response){
 router.get('/:id', async function(request, response) {
     //Recebe o ID via paramêtro
     let id = request.params.id 
-    let result = await admController.buscarByIdAdm(id)
+    let result = await administradorController.buscarByIdAdm(id)
 
     response.status(result.status_code)
     response.json(result)
@@ -48,7 +48,7 @@ router.put('/:id', bodyParser.json(), async function(request, response){
 
     // Chama a função de atualizar na controller e encaminha os dados, id e content-type
     // obedecendo a ordem de criação na função da controller
-    let result = await admController.atualizarAdm(dados, id, contentType)
+    let result = await administradorController.atualizarAdm(dados, id, contentType)
 
     response.status(result.status_code)
     response.json(result)
@@ -59,7 +59,7 @@ router.put('/:id', bodyParser.json(), async function(request, response){
 router.delete('/:id', async function (request, response) {
     let id = request.params.id
 
-    let result = await admController.excluirByIdAdm(id)
+    let result = await administradorController.excluirByIdAdm(id)
 
     response.status(result.status_code)
     response.json(result)

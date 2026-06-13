@@ -10,7 +10,7 @@
 const config_message = require('../modulo/configMessages.js')
 
 // import do arquivo DAO para fazer o CRUD da relação no banco de dados
-const produtoCategoriaDAO = require('../../model/DAO/tabelas_intermediarias/produto_categoria/produtos_categoria.js')
+const produtoCategoriaDAO = require('../../model/DAO/produto_categoria/produtos_categoria.js')
 
 const inserirProdutoCategoria = async function(produtoCategoria){
     let message = JSON.parse(JSON.stringify(config_message))

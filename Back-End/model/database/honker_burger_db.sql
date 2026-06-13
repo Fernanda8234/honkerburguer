@@ -51,7 +51,7 @@ create table tbl_combo(
 
 create table tbl_tipo_sabor(
 	id		int not null primary key auto_increment,
-    blend	int default null,
+    blend	int not null,
     nome	varchar(255) not null
 );
 

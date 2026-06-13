@@ -7,7 +7,7 @@
 
 const knex = require('knex')
 
-const knexConfig = require('../../database_config_knex/knex_file.js')
+const knexConfig = require('../../database_config_knex/KnexFile.js')
 
 const knexConex = knex(knexConfig.development)
 

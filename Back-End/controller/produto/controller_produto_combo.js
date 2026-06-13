@@ -10,7 +10,7 @@
 const config_message = require('../modulo/configMessages.js')
 
 // import do arquivo DAO para fazer o CRUD da relação no banco de dados
-const produtoComboDAO = require('../../model/DAO/tabelas_intermediarias/produto_combo/produto_combo.js')
+const produtoComboDAO = require('../../model/DAO/produto_combo/produto_combo.js')
 
 const inserirProdutoCombo = async function(produtoCombo){
     let message = JSON.parse(JSON.stringify(config_message))

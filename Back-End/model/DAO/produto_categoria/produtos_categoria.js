@@ -8,8 +8,7 @@
 
 const knex = require('knex')
 
-const knexConfig = require('../../database_config_knew/knexFile.js')
-
+const knexConfig = require('../../database_config_knex/KnexFile.js')
 const knexConex = knex(knexConfig.development)
 
 const insertProdutoCategoria = async function(produtoCategoria){
