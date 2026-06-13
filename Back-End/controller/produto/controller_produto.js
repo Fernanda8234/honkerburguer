@@ -1,9 +1,8 @@
 /****************************************************************
- * Objetivo: Arquivo responsável pela validação, tratamento e
- *          Manipulação de dados para o CRUD de produto
- * Data: 11/06/2026
+ * Objetivo: Implementar o crud das tabelas intermediárias de categoria e combo
+ * Data: 13/06/2026
  * Autor: Fernanda Mota
- * Versão: 1.11.07
+ * Versão: 1.11.08
 ****************************************************************/
 
 //Arquivo de configuração de mensagens
@@ -12,38 +11,73 @@ const config_message = require('../modulo/configMessages.js')
 //Chama o DAO de produtos
 const produtoDAO = require('../../model/DAO/produto/produto.js')
 
+// import de arquivos de Controller
+const controller_produto_categoria  = require('./controller_produto_categoria.js')
+const controller_produto_combo      = require('./controller_produto_combo.js')
+
 //Faz a inserção de novos produtos
 const inserirNovoProduto = async function(produto, contentType){
 
     let message = JSON.parse(JSON.stringify(config_message))
     
     try{
-    if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
+        if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
 
-    let validar = await validarDados(produto)
+        let validar = await validarDados(produto)
 
-    if(validar){
-        return validar // 400
-    }
-    else{
-
-        let result = await produtoDAO.insertProduto(produto)
-
-        if(result){ // 201
-            produto.id = result
-            message.DEFAULT_MESSAGE.status      = message.SUCCESS_CREATED_ITEM.status
-            message.DEFAULT_MESSAGE.status_code = message.SUCCESS_CREATED_ITEM.status_code
-            message.DEFAULT_MESSAGE.message     = message.SUCCESS_CREATED_ITEM.message
-            message.DEFAULT_MESSAGE.response    = produto
-        }else{ // 500
-            return message.ERROR_INTERNAL_SERVER_MODEL // 500
+        if(validar){
+            return validar // 400
         }
+        else{
 
-        return message.DEFAULT_MESSAGE
+            let result = await produtoDAO.insertProduto(produto)
+
+            if(result){ // 201
+                produto.id = result
+
+                if(produto.categoria){
+                    for(categoria of produto.categoria){
+
+                        let produtoCategoria = {"id_produto": produto.id,
+                                                "id_categoria": categoria.id
+                        }
+
+                        let resultInsertCategoria = await controller_produto_categoria.inserirProdutoCategoria(produtoCategoria)
+
+                        if(!resultInsertCategoria.status){
+                            return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+                        }
+                    }
+                }
+
+                if(produto.combo){
+                    for(combo of produto.combo){
+
+                        let produtoCombo = {"id_produto": produto.id,
+                                            "id_combo": combo.id
+                        }
+
+                        let resultInsertCombo = await controller_produto_combo.inserirProdutoCombo(produtoCombo)
+
+                        if(!resultInsertCombo.status){
+                            return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+                        }
+                    }
+                }
+
+                message.DEFAULT_MESSAGE.status      = message.SUCCESS_CREATED_ITEM.status
+                message.DEFAULT_MESSAGE.status_code = message.SUCCESS_CREATED_ITEM.status_code
+                message.DEFAULT_MESSAGE.message     = message.SUCCESS_CREATED_ITEM.message
+                message.DEFAULT_MESSAGE.response    = produto
+            }else{ // 500
+                return message.ERROR_INTERNAL_SERVER_MODEL // 500
+            }
+
+            return message.DEFAULT_MESSAGE
+            }
+        }else{
+            return message.ERROR_CONTENT_TYPE // 415    
         }
-    }else{
-        return message.ERROR_CONTENT_TYPE // 415    
-    }
     }catch (error){
         return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500 (controller)
     }
@@ -68,6 +102,47 @@ const atualizarProduto = async function(produto, id, contentType){
                     let result = await produtoDAO.updateProduto(produto)
 
                     if(result){
+
+                        if(produto.categoria){
+                            let resultDeleteCategoria = await controller_produto_categoria.excluirCategoriasIdProduto(produto.id)
+
+                            if(resultDeleteCategoria.status){
+                                for(categoria of produto.categoria){
+
+                                    let produtoCategoria = {
+                                        "id_produto": produto.id,
+                                        "id_categoria": categoria.id
+                                    }
+
+                                    let resultInsertCategoria = await controller_produto_categoria.inserirProdutoCategoria(produtoCategoria)
+
+                                    if(!resultInsertCategoria.status){
+                                        return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+                                    }
+                                }
+                            }
+                        }
+
+                        if(produto.combo){
+                            let resultDeleteCombo = await controller_produto_combo.excluirCombosIdProduto(produto.id)
+
+                            if(resultDeleteCombo.status){
+                                for(combo of produto.combo){
+
+                                    let produtoCombo = {
+                                        "id_produto": produto.id,
+                                        "id_combo": combo.id
+                                    }
+
+                                    let resultInsertCombo = await controller_produto_combo.inserirProdutoCombo(produtoCombo)
+
+                                    if(!resultInsertCombo.status){
+                                        return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+                                    }
+                                }
+                            }
+                        }
+
                         message.DEFAULT_MESSAGE.status      = message.SUCCESS_UPDATED_ITEM.status
                         message.DEFAULT_MESSAGE.status_code = message.SUCCESS_UPDATED_ITEM.status_code
                         message.DEFAULT_MESSAGE.message     = message.SUCCESS_UPDATED_ITEM.message
@@ -103,6 +178,20 @@ const listarProduto = async function(){
         if(result){
             
             if(result.length > 0 ){
+
+                for(produto of result){
+
+                    let resultCategoria = await controller_produto_categoria.buscarCategoriaIdProduto(produto.id)
+                        if(resultCategoria.status){
+                            produto.categoria = resultCategoria.response.produto_categoria
+                        }
+
+                    let resultCombo = await controller_produto_combo.buscarComboIdProduto(produto.id)
+                        if(resultCombo.status){
+                            produto.combo = resultCombo.response.produto_combo
+                        }
+                }
+
                 message.DEFAULT_MESSAGE.status         = message.SUCCESS_RESPONSE.status
                 message.DEFAULT_MESSAGE.status_code    = message.SUCCESS_RESPONSE.status_code
                 message.DEFAULT_MESSAGE.response.count = result.length
@@ -133,6 +222,20 @@ const buscarByIdProduto = async function(id){
 
             if(result){
                 if(result.length > 0){
+
+                    for(produto of result){
+
+                        let resultCategoria = await controller_produto_categoria.buscarCategoriaIdProduto(produto.id)
+                            if(resultCategoria.status){
+                                produto.categoria = resultCategoria.response.produto_categoria
+                            }
+
+                        let resultCombo = await controller_produto_combo.buscarComboIdProduto(produto.id)
+                            if(resultCombo.status){
+                                produto.combo = resultCombo.response.produto_combo
+                            }
+                    }
+
                     message.DEFAULT_MESSAGE.status          = message.SUCCESS_RESPONSE.status
                     message.DEFAULT_MESSAGE.status_code     = message.SUCCESS_RESPONSE.status_code
                     message.DEFAULT_MESSAGE.response.produtos  = result
@@ -143,7 +246,6 @@ const buscarByIdProduto = async function(id){
                 }
             }else return message.ERROR_INTERNAL_SERVER_MODEL // 500 (model)
         }
-
         } catch (error) {
             return message.ERROR_INTERNAL_SERVER_CONTROLLER
         }
@@ -185,40 +287,49 @@ const validarDados = async function(produto) {
         message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO (Tamanho máximo 255)'
         return message.ERROR_BAD_REQUEST
     }
+
     else if (!produto.preco || isNaN(produto.preco) || produto.preco < 0) {
         message.ERROR_BAD_REQUEST.field = '[PREÇO] INVÁLIDO'
         return message.ERROR_BAD_REQUEST
     }
+
     else if (!produto.url_imagem || produto.url_imagem.length > 255) {
         message.ERROR_BAD_REQUEST.field = '[URL_IMAGEM] INVÁLIDO (Tamanho máximo 255)'
         return message.ERROR_BAD_REQUEST
     }
+
     else if (!produto.descricao) {
         message.ERROR_BAD_REQUEST.field = '[DESCRICAO] INVÁLIDO'
         return message.ERROR_BAD_REQUEST
     }
+
     else if (produto.disponibilidade === undefined || produto.disponibilidade === null || isNaN(produto.disponibilidade) || (produto.disponibilidade !== 0 && produto.disponibilidade !== 1)) {
         message.ERROR_BAD_REQUEST.field = '[DISPONIBILIDADE] INVÁLIDO (Use 0 ou 1)'
         return message.ERROR_BAD_REQUEST
     }
+
     else if (produto.desconto !== null && produto.desconto !== undefined && isNaN(produto.desconto)) {
         message.ERROR_BAD_REQUEST.field = '[DESCONTO] INVÁLIDO'
         return message.ERROR_BAD_REQUEST
     }
+
     else if (produto.data_inicio_campanha && isNaN(Date.parse(produto.data_inicio_campanha))) {
         message.ERROR_BAD_REQUEST.field = '[DATA_INICIO_CAMPANHA] INVÁLIDO'
         return message.ERROR_BAD_REQUEST
     }
+
     else if (produto.data_fim_campanha && isNaN(Date.parse(produto.data_fim_campanha))) {
         message.ERROR_BAD_REQUEST.field = '[DATA_FIM_CAMPANHA] INVÁLIDO'
         return message.ERROR_BAD_REQUEST
     }
+    
     else if (!produto.classificacao_alimentar || produto.classificacao_alimentar.length > 50) {
         message.ERROR_BAD_REQUEST.field = '[CLASSIFICACAO_ALIMENTAR] INVÁLIDO'
         return message.ERROR_BAD_REQUEST
     }
+
     else{
-    return false
+        return false
     } 
 }
 

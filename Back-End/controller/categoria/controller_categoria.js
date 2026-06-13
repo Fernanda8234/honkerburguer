@@ -1,6 +1,6 @@
 /****************************************************************
  * Objetivo: Arquivo responsável pela validação, tratamento e
- *          Manipulação de dados para o CRUD de produto
+ *          Manipulação de dados para o CRUD de categoria
  * Data: 11/06/2026
  * Autor: Fernanda Mota
  * Versão: 1.11.07
@@ -9,10 +9,10 @@
 //Arquivo de configuração de mensagens
 const config_message = require('../modulo/configMessages.js')
 
-//Chama o DAO de produtos
+//Chama o DAO de categoria
 const categoriaDAO = require('../../model/DAO/categoria/categoria.js')
 
-//Faz a inserção de novos produtos
+//Faz a inserção de novas categorias
 const inserirNovaCategoria = async function(categoria, contentType){
 
     let message = JSON.parse(JSON.stringify(config_message))
@@ -68,7 +68,7 @@ const atualizarCategoria = async function(categoria, id, contentType){
                     let result = await categoriaDAO.updateCategoria(categoria)
 
                     if(result){
-                        message.DEFAULT_MESSAGE.status      = message.SUCCESS_UPDATED_ITEM.status  // ✅ corrigido (era SUCESS_)
+                        message.DEFAULT_MESSAGE.status      = message.SUCCESS_UPDATED_ITEM.status
                         message.DEFAULT_MESSAGE.status_code = message.SUCCESS_UPDATED_ITEM.status_code
                         message.DEFAULT_MESSAGE.message     = message.SUCCESS_UPDATED_ITEM.message
                         message.DEFAULT_MESSAGE.response    = categoria
@@ -103,7 +103,7 @@ const listarCategorias = async function(){
         if(result){
             
             if(result.length > 0 ){
-                message.DEFAULT_MESSAGE.status         = message.SUCCESS_RESPONSE.status       // ✅ corrigido (era SUCESS_)
+                message.DEFAULT_MESSAGE.status         = message.SUCCESS_RESPONSE.status       
                 message.DEFAULT_MESSAGE.status_code    = message.SUCCESS_RESPONSE.status_code
                 message.DEFAULT_MESSAGE.response.count = result.length
                 message.DEFAULT_MESSAGE.response.categoria = result
@@ -133,7 +133,7 @@ const buscarByIdCategoria = async function(id){
 
             if(result){
                 if(result.length > 0){
-                    message.DEFAULT_MESSAGE.status          = message.SUCCESS_RESPONSE.status      // ✅ corrigido (era SUCESS_)
+                    message.DEFAULT_MESSAGE.status          = message.SUCCESS_RESPONSE.status     
                     message.DEFAULT_MESSAGE.status_code     = message.SUCCESS_RESPONSE.status_code
                     message.DEFAULT_MESSAGE.response.categoria  = result
 
@@ -141,7 +141,7 @@ const buscarByIdCategoria = async function(id){
                 }else{
                     return message.ERROR_NOT_FOUND //404
                 }
-            }else return message.ERROR_INTERNAL_SERVER_MODEL // ✅ corrigido (era result = sem return)
+            }else return message.ERROR_INTERNAL_SERVER_MODEL 
         }
 
         } catch (error) {
@@ -184,8 +184,9 @@ const validarDados = async function(categoria) {
         message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO (Tamanho máximo 255)'
         return message.ERROR_BAD_REQUEST
     }
-    else if (categoria.descricao === undefined || categoria.descricao === null || categoria.descricao === '' ) {
-        message.ERROR_BAD_REQUEST.field = '[DESCRIÇÃO] INVÁLIDA (Tamanho máximo 255)'
+    // se descrição for fornecida, ela precisa ser válida (ex: não pode ser só espaços)
+    else if (categoria.descricao && categoria.descricao.trim() === "") {
+        message.ERROR_BAD_REQUEST.field = '[DESCRIÇÃO] INVÁLIDA'
         return message.ERROR_BAD_REQUEST
     }
     else{

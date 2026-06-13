@@ -10,7 +10,7 @@
 const config_message = require('../modulo/configMessages.js')
 
 // import do arquivo DAO para fazer o CRUD da relação no banco de dados
-const tipoSaborProdutoDAO = require('../../model/DAO/tabelas_intermediarias/tipo_sabor_produto/tipo_sabor_produto.js')
+const tipoSaborProdutoDAO = require('../../model/DAO/tipo_sabor_produto/tipo_sabor_produto.js')
 
 const inserirTipoSaborProduto = async function(tipoSaborProduto){
     let message = JSON.parse(JSON.stringify(config_message))

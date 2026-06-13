@@ -9,7 +9,7 @@
 const knex = require('knex')
 
 //Import do arquivo de configuração para conexão com o BD Mysql
-const knexConfig = require('../../database_config_knex/knex_file.js')
+const knexConfig = require('../../database_config_knex/KnexFile.js')
 
 //Criar a conexão com o BD Mysql
 const knexConex = knex(knexConfig.development)
