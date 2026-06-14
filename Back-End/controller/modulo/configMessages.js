@@ -1,21 +1,18 @@
 /*********************************************************************************
- * Objetivo: Arquivo responsável pela configuração e padronização das mensagens
- *      da API
+ * Objetivo: Arquivo responsável pela configuração e padronização das mensagens da API
  * Data:    11/06/2026
  * Autor:   Fernanda Mota
  * Versão:  1.11.07
 *********************************************************************************/
-
 //Padronização de cabeçalho para retorno dos endpoints da API
 const DEFAULT_MESSAGE = {
     api_description:    'API para gerenciar o controle de uma hamburgueria',
     development:        'Fernanda Mota',
-    version:            '1.0.4.26',
+    version:            '1.11.07',
     status:             Boolean,
     status_code:        Number,
     response:           {}
 }
-
 //Mensagens de erro da API
 //pode ser tudo em maiusculo caso for erro
 const ERROR_BAD_REQUEST                 = {status: false, status_code: 400, message: 'Os dados enviados na requisição não estão corretos.'}
@@ -26,13 +23,15 @@ const ERROR_NOT_FOUND                   = {status: false, status_code: 404, mess
 
 //Mensagens de sucesso da API
 const SUCCESS_CREATED_ITEM      = {status: true, status_code: 201, message: 'Registro inserido com sucesso!'} // Mensagem de sucesso da API
+<<<<<<< Updated upstream
 
 const SUCCESS_CREATED_ITEM_WARNING  = {status: true, status_code: 201, message: 'Os dados principais foram inseridos com sucesso, porém alguns dados apresentaram problemas!'} // Mensagem de sucesso da API
 
+=======
+const SUCCESS_CREATED_ITEM_WARNING  = {status: true, status_code: 201, message: 'Os dados principais foram inseridos com sucesso, porém alguns dados apresentaram problemas!'} // Mensagem de sucesso da API
+>>>>>>> Stashed changes
 const SUCCESS_RESPONSE           = {status: true, status_code: 200} //retorno para GET 200
-
 const SUCCESS_UPDATED_ITEM       = {status: true, status_code: 200, message: 'Registro atualizado com sucesso!'} //retorno para PUT 200
-
 const SUCCESS_DELETED_ITEM       = {status: true, status_code: 200, message: 'Registro excluido com sucesso!'} // retorno para DELETE (200 ou 204)
 
 module.exports = {
