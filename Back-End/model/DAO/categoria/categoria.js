@@ -14,23 +14,15 @@ const knexConfig = require('../../database_config_knex/KnexFile.js')
 //Criar a conexão com o BD Mysql
 const knexConex = knex(knexConfig.development)
 
-const insertProduto = async function(produto){
+const insertCategoria = async function(categoria){
     try {
-        let sql = `insert into tbl_produto (
+        let sql = `insert into tbl_categoria (
                             nome,
-                            preco,
-                            url_imagem,
-                            descricao,
-                            disponibilidade,
-                            classificacao_alimentar
+                            descricao
                             )
                     values(
-                            '${produto.nome}',
-                            ${produto.preco},
-                            '${produto.url_imagem}',
-                            '${produto.descricao}',
-                            ${produto.disponibilidade},
-                            '${produto.classificacao_alimentar}'
+                            '${categoria.nome}',
+                            '${categoria.descricao}'
                             );`
     
         //Executar o scriptSQL no banco de dados
@@ -45,17 +37,13 @@ const insertProduto = async function(produto){
         }
 }
 
-const updateProduto = async function(produto){
+const updateCategoria = async function(categoria){
         try {
             // Script para atualizar os dados do BD
-            let sql = `update tbl_produto set
-                            nome            = '${produto.nome}',
-                            preco           = ${produto.preco},
-                            url_imagem      = '${produto.url_imagem}',
-                            descricao       = '${produto.descricao}',
-                            disponibilidade = ${produto.disponibilidade},
-                            classificacao_alimentar = '${produto.classificacao_alimentar}'
-                            where id        =  ${produto.id}`
+            let sql = `update tbl_categoria set
+                            nome            = '${categoria.nome}',
+                            descricao       = '${categoria.descricao}'
+                            where id        =  ${categoria.id}`
               
             // Executa o script SQL no BD
             let result = await knexConex.raw(sql)
@@ -70,9 +58,9 @@ const updateProduto = async function(produto){
         }
 }
 
-const selectAllProduto = async function(){
+const selectAllCategoria = async function(){
     try {
-        let sql = 'select * from tbl_produto order by id desc'
+        let sql = 'select * from tbl_categoria order by id desc'
 
         let result = await knexConex.raw(sql)
 
@@ -88,9 +76,9 @@ const selectAllProduto = async function(){
     }
 }
 
-const selectByIdProduto  = async function(id){
+const selectByIdCategoria  = async function(id){
     try {
-        let sql = `select * from tbl_produto where id=${id}`
+        let sql = `select * from tbl_categoria where id=${id}`
 
         let result = await knexConex.raw(sql)
 
@@ -104,9 +92,9 @@ const selectByIdProduto  = async function(id){
     }
 }
 
-const deleteByIdProduto  = async function(id){
+const deleteByIdCategoria  = async function(id){
     try{
-        let sql = `delete from tbl_produto
+        let sql = `delete from tbl_categoria
                      where id=${id}`
 
     let result = await knexConex.raw(sql)
@@ -123,9 +111,9 @@ const deleteByIdProduto  = async function(id){
 }
 
 module.exports = {
-    insertProduto,
-    updateProduto,
-    selectAllProduto,
-    selectByIdProduto,
-    deleteByIdProduto
+    insertCategoria,
+    updateCategoria,
+    selectAllCategoria,
+    selectByIdCategoria,
+    deleteByIdCategoria
 }
