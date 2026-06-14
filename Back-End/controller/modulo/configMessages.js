@@ -23,13 +23,9 @@ const ERROR_NOT_FOUND                   = {status: false, status_code: 404, mess
 
 //Mensagens de sucesso da API
 const SUCCESS_CREATED_ITEM      = {status: true, status_code: 201, message: 'Registro inserido com sucesso!'} // Mensagem de sucesso da API
-<<<<<<< Updated upstream
 
 const SUCCESS_CREATED_ITEM_WARNING  = {status: true, status_code: 201, message: 'Os dados principais foram inseridos com sucesso, porém alguns dados apresentaram problemas!'} // Mensagem de sucesso da API
 
-=======
-const SUCCESS_CREATED_ITEM_WARNING  = {status: true, status_code: 201, message: 'Os dados principais foram inseridos com sucesso, porém alguns dados apresentaram problemas!'} // Mensagem de sucesso da API
->>>>>>> Stashed changes
 const SUCCESS_RESPONSE           = {status: true, status_code: 200} //retorno para GET 200
 const SUCCESS_UPDATED_ITEM       = {status: true, status_code: 200, message: 'Registro atualizado com sucesso!'} //retorno para PUT 200
 const SUCCESS_DELETED_ITEM       = {status: true, status_code: 200, message: 'Registro excluido com sucesso!'} // retorno para DELETE (200 ou 204)
