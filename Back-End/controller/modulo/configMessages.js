@@ -1,14 +1,14 @@
 /*********************************************************************************
  * Objetivo: Arquivo responsável pela configuração e padronização das mensagens da API
- * Data:    11/06/2026
+ * Data:    13/06/2026
  * Autor:   Fernanda Mota
- * Versão:  1.11.07
+ * Versão:  1.14.06
 *********************************************************************************/
 //Padronização de cabeçalho para retorno dos endpoints da API
 const DEFAULT_MESSAGE = {
     api_description:    'API para gerenciar o controle de uma hamburgueria',
     development:        'Fernanda Mota',
-    version:            '1.11.07',
+    version:            '1.14.06',
     status:             Boolean,
     status_code:        Number,
     response:           {}
