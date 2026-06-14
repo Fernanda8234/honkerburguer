@@ -1,7 +1,9 @@
 create database if not exists honker_burguer_db;
 use honker_burguer_db;
 
-show tables;
+#OBSERVAÇÃO: NÃO USAR "on delete cascade" POIS VAMOS USAR O TRIGGER OU TINYINT(1) POIS TA DANDO ERRO! 
+#RETIREI A TABELA IGREDIENTES POIS NÃO VAMOS MAIS USAR
+#ALTERAÇÕES FEITA POR: MATHEUS
 
 create table tbl_administrador(
 	id         		int not null primary key auto_increment,
@@ -31,7 +33,7 @@ create table tbl_produto(
 	preco                   decimal(10,2) not null,
 	url_imagem              varchar(255) not null,
 	descricao               text not null,
-	disponibilidade         tinyint(1) not null default 1,
+	disponibilidade         tinyint not null default 1,
     desconto				decimal(5,2) default null,
     data_inicio_campanha	datetime default null,
     data_fim_campanha		datetime default null,
@@ -55,17 +57,6 @@ create table tbl_tipo_sabor(
     nome	varchar(255) not null
 );
 
-create table tbl_ingrediente(
-    id                      int not null primary key auto_increment,
-    nome                    varchar(255) not null,
-    descricao               text not null,
-    status_ingrediente      tinyint(1) not null default 1,
-    url_imagem              varchar(255) not null,
-    data_criacao            datetime not null default current_timestamp,
-    data_atualizacao        datetime default current_timestamp
-    on update current_timestamp
-);
-
 create table tbl_produto_categoria(
     id              int not null primary key auto_increment,
     id_produto      int not null,
@@ -75,13 +66,11 @@ create table tbl_produto_categoria(
 
     constraint FK_PRODUTO_PRODUTOCATEGORIA
 	foreign key (id_produto)
-	references tbl_produto(id)
-	on delete cascade,
+	references tbl_produto(id),
 
 	constraint FK_CATEGORIA_PRODUTOCATEGORIA
 	foreign key (id_categoria)
 	references tbl_categoria(id)
-	on delete cascade
 );
 
 create table tbl_produto_combo(
@@ -93,13 +82,11 @@ create table tbl_produto_combo(
 
     constraint FK_PRODUTO_PRODUTOCOMBO
 	foreign key (id_produto)
-	references tbl_produto(id)
-	on delete cascade,
+	references tbl_produto(id),
 
 	constraint FK_COMBO_PRODUTOCOMBO
 	foreign key (id_combo)
 	references tbl_combo(id)
-	on delete cascade
 );
 
 create table tbl_tipo_sabor_produto(
@@ -111,29 +98,21 @@ create table tbl_tipo_sabor_produto(
 
     constraint FK_TIPOSABOR_TIPOSABORPRODUTO
 	foreign key (id_tipo_sabor)
-	references tbl_tipo_sabor(id)
-	on delete cascade,
+	references tbl_tipo_sabor(id),
 
 	constraint FK_PRODUTO_TIPOSABORPRODUTO
 	foreign key (id_produto)
 	references tbl_produto(id)
-	on delete cascade
 );
 
-create table tbl_produto_ingrediente(
-    id                  int not null primary key auto_increment,
-    id_produto          int not null,
-    id_ingrediente      int not null,
-    
-    unique (id_produto, id_ingrediente),
+#Retorna quais os campos das tabelas
+desc tbl_administrador;
+desc tbl_produto;
+desc tbl_tipo_sabor;
+desc tbl_categoria;
+desc tbl_combo;
+desc tbl_produto_combo;
+desc tbl_produto_categoria;
+desc tbl_tipo_sabor_produto;
 
-    constraint FK_PRODUTO_PRODUTOINGREDIENTE
-    foreign key (id_produto)
-    references tbl_produto(id)
-    on delete cascade,
-
-    constraint FK_INGREDIENTE_PRODUTOINGREDIENTE
-    foreign key (id_ingrediente)
-    references tbl_ingrediente(id)
-    on delete cascade
-);
+show tables;
