@@ -45,7 +45,7 @@ const inserirNovoProduto = async function(produto, contentType){
                         let resultInsertCategoria = await controller_produto_categoria.inserirProdutoCategoria(produtoCategoria)
 
                         if(!resultInsertCategoria.status){
-                            return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+                            return message.SUCCESS_CREATED_ITEM_WARNING // 201 com alerta de dados não inseridos
                         }
                     }
                 }
@@ -60,7 +60,7 @@ const inserirNovoProduto = async function(produto, contentType){
                         let resultInsertCombo = await controller_produto_combo.inserirProdutoCombo(produtoCombo)
 
                         if(!resultInsertCombo.status){
-                            return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+                            return message.SUCCESS_CREATED_ITEM_WARNING // 201 com alerta de dados não inseridos
                         }
                     }
                 }
@@ -83,7 +83,7 @@ const inserirNovoProduto = async function(produto, contentType){
     }
 }
 
-const atualizarProduto = async function(produto, id, contentType){
+const atualizarProduto = async function(produto, contentType, id){
     let message = JSON.parse(JSON.stringify(config_message))
     
     try{
@@ -117,7 +117,7 @@ const atualizarProduto = async function(produto, id, contentType){
                                     let resultInsertCategoria = await controller_produto_categoria.inserirProdutoCategoria(produtoCategoria)
 
                                     if(!resultInsertCategoria.status){
-                                        return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+                                        return message.SUCCESS_CREATED_ITEM_WARNING // 201 com alerta de dados não inseridos
                                     }
                                 }
                             }
@@ -137,7 +137,7 @@ const atualizarProduto = async function(produto, id, contentType){
                                     let resultInsertCombo = await controller_produto_combo.inserirProdutoCombo(produtoCombo)
 
                                     if(!resultInsertCombo.status){
-                                        return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+                                        return message.SUCCESS_CREATED_ITEM_WARNING // 201 com alerta de dados não inseridos
                                     }
                                 }
                             }

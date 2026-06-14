@@ -47,9 +47,9 @@ const insertProduto = async function(produto){
 
 const updateProduto = async function(produto){
         try {
-            // Script para atualizar os dados do BD
+             // Script para atualizar os dados do BD
             let sql = `update tbl_produto set
-                            nome            = '${produto.nome}',
+                           nome            = '${produto.nome}',
                             preco           = ${produto.preco},
                             url_imagem      = '${produto.url_imagem}',
                             descricao       = '${produto.descricao}',

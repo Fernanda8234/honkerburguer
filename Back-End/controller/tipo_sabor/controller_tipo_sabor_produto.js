@@ -163,7 +163,7 @@ const buscarProdutoIdTipoSabor = async function(idTipoSabor){
 
         } else {
 
-            let result = await tipoSaborProdutoDAO.selectProdutosByIdTipoSabor(idTipoSabor)
+            let result = await tipoSaborProdutoDAO.selectProdutoByIdTipoSabor(idTipoSabor)
 
             if(result){
 
@@ -201,7 +201,7 @@ const buscarTipoSaborIdProduto = async function(idProduto){
 
         } else {
 
-            let result = await tipoSaborProdutoDAO.selectTiposSaborByIdProduto(idProduto)
+            let result = await tipoSaborProdutoDAO.selectTipoSaborByIdProduto(idProduto)
 
             if(result){
 
@@ -240,9 +240,9 @@ const excluirTipoSaborProduto = async function(id){
 
             if(result){
 
-                message.DEFAULT_MESSAGE.status      = message.SUCCESS_DELETE_ITEM.status
-                message.DEFAULT_MESSAGE.status_code = message.SUCCESS_DELETE_ITEM.status_code
-                message.DEFAULT_MESSAGE.message     = message.SUCCESS_DELETE_ITEM.message
+                message.DEFAULT_MESSAGE.status      = message.SUCCESS_DELETED_ITEM.status
+                message.DEFAULT_MESSAGE.status_code = message.SUCCESS_DELETED_ITEM.status_code
+                message.DEFAULT_MESSAGE.message     = message.SUCCESS_DELETED_ITEM.message
 
                 return message.DEFAULT_MESSAGE
 
@@ -259,16 +259,16 @@ const excluirTipoSaborProduto = async function(id){
     }
 }
 
-// função para excluir os tipos de sabor relacionados com o produto
-const excluirTiposSaborIdProduto = async function(idProduto){
+// função para excluir os produtos relacionados com o tipo sabor
+const excluirProdutoIdTipoSabor = async function(idTipoSabor){
     let message = JSON.parse(JSON.stringify(config_message))
 
     try {
 
-        let result = await tipoSaborProdutoDAO.deleteTiposSaborByIdProduto(idProduto)
+        let result = await tipoSaborProdutoDAO.deleteProdutoByIdTipoSabor(idTipoSabor)
 
         if(result)
-            return message.SUCCESS_DELETE_ITEM
+            return message.SUCCESS_DELETED_ITEM
         else
             return message.ERROR_INTERNAL_SERVER_MODEL
 
@@ -303,5 +303,5 @@ module.exports = {
     buscarProdutoIdTipoSabor,
     buscarTipoSaborIdProduto,
     excluirTipoSaborProduto,
-    excluirTiposSaborIdProduto
+    excluirProdutoIdTipoSabor
 }

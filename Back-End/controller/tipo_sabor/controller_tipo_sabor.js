@@ -45,8 +45,10 @@ const inserirNovoTipoSabor = async function(tipoSabor, contentType){
                         let resultInsertProduto =
                             await controller_tipo_sabor_produto.inserirTipoSaborProduto(tipoSaborProduto)
 
+                            console.log(resultInsertProduto)
                         if (!resultInsertProduto.status) {
-                            return message.SUCCESS_CREATED_ITEM_WARNIRG
+                            
+                            return message.SUCCESS_CREATED_ITEM_WARNING
                         }
                     }
                 }
@@ -104,7 +106,7 @@ const atualizarTipoSabor = async function(tipoSabor, id, contentType){
                                     let resultInsertProduto = await controller_tipo_sabor_produto.inserirTipoSaborProduto(tipoSaborProduto)
 
                                     if(!resultInsertProduto.status){
-                                        return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+                                        return message.SUCCESS_CREATED_ITEM_WARNING // 201 com alerta de dados não inseridos
                                     }
                                 }
                             }
@@ -128,6 +130,7 @@ const atualizarTipoSabor = async function(tipoSabor, id, contentType){
             return message.ERROR_CONTENT_TYPE // 415
         }
     }catch (error){
+        console.log(error)
         return message.ERROR_INTERNAL_SERVER_CONTROLLER // 500 (Controller)
     }
     

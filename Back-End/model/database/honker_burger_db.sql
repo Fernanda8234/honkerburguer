@@ -2,8 +2,10 @@ create database if not exists honker_burguer_db;
 use honker_burguer_db;
 
 #OBSERVAÇÃO: NÃO USAR "on delete cascade" POIS VAMOS USAR O TRIGGER OU TINYINT(1) POIS TA DANDO ERRO! 
-#RETIREI A TABELA IGREDIENTES POIS NÃO VAMOS MAIS USAR
+#RETIREI A TABELA INGREDIENTES POIS NÃO VAMOS MAIS USAR
 #ALTERAÇÕES FEITA POR: MATHEUS
+
+show tables;
 
 create table tbl_administrador(
 	id         		int not null primary key auto_increment,

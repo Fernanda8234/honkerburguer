@@ -48,7 +48,7 @@ router.put('/:id', bodyParser.json(), async function(request, response){
 
     // Chama a função de atualizar na controller e encaminha os dados, id e content-type
     // obedecendo a ordem de criação na função da controller
-    let result = await produtoController.atualizarProduto(dados, id, contentType)
+    let result = await produtoController.atualizarProduto(dados, contentType, id)
 
     response.status(result.status_code)
     response.json(result)

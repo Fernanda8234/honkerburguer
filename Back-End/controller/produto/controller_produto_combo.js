@@ -240,9 +240,9 @@ const excluirProdutoCombo = async function(id){
 
             if(result){
 
-                message.DEFAULT_MESSAGE.status      = message.SUCCESS_DELETE_ITEM.status
-                message.DEFAULT_MESSAGE.status_code = message.SUCCESS_DELETE_ITEM.status_code
-                message.DEFAULT_MESSAGE.message     = message.SUCCESS_DELETE_ITEM.message
+                message.DEFAULT_MESSAGE.status      = message.SUCCESS_DELETED_ITEM.status
+                message.DEFAULT_MESSAGE.status_code = message.SUCCESS_DELETED_ITEM.status_code
+                message.DEFAULT_MESSAGE.message     = message.SUCCESS_DELETED_ITEM.message
 
                 return message.DEFAULT_MESSAGE
 
@@ -268,7 +268,7 @@ const excluirCombosIdProduto = async function(idProduto){
         let result = await produtoComboDAO.deleteCombosByIdProduto(idProduto)
 
         if(result)
-            return message.SUCCESS_DELETE_ITEM
+            return message.SUCCESS_DELETED_ITEM
         else
             return message.ERROR_INTERNAL_SERVER_MODEL
 
