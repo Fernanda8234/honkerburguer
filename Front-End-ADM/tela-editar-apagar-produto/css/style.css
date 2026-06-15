@@ -78,6 +78,7 @@ textarea{
     width: 800px;
     padding: 10px;
     font-size: 20px;
+    border: 1px solid rgb(0, 0, 0);
     border-radius: 5px;
 }
 
@@ -93,8 +94,9 @@ input[type="checkbox"]{
 
 .botoes{
     display: flex;
-    flex-wrap: wrap;
-    gap: 100px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 #atualizar{
@@ -129,3 +131,36 @@ button, input[type="checkbox"], #preview{
     resize: horizontal;
     resize: vertical;
 } */
+
+@media (max-width: 768px){
+    form{
+        width: 100%;
+        padding: 20px;
+    }
+
+    textarea{
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px){
+    form{
+        width: 100%;
+        padding: 15px;
+    }
+
+    textarea{
+        width: 100%;
+    }
+
+    .botoes{
+        flex-direction: column;
+        gap: 10px;
+        padding-top: 15px;
+    }
+
+    #atualizar, #deletar{
+        width: 100%;
+        max-width: 300px;
+    }
+}

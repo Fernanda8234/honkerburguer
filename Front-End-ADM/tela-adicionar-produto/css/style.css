@@ -78,6 +78,7 @@ textarea{
     width: 800px;
     padding: 10px;
     font-size: 20px;
+    border: 1px solid rgb(0, 0, 0);
     border-radius: 5px;
 }
 
@@ -117,3 +118,22 @@ button, input[type="checkbox"], #preview{
     resize: horizontal;
     resize: vertical;
 } */
+@media (max-width: 768px){
+    form{
+        width: 723px;
+    }
+
+    textarea{
+        width: 700px;
+    }
+}
+
+@media (max-width: 480px){
+    form{
+        width: 470px;
+    }
+
+    textarea{
+        width: 450px;
+    }
+}
