@@ -13,7 +13,7 @@ header img{
     margin-left: 25px;
 }
 
-.container {
+.container{
     display: flex;
     justify-content: center; 
     align-items: center;     
@@ -25,7 +25,8 @@ form{
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    width: 525px;
+    width: 100%;
+    max-width: 525px;
     height: 500px;
     align-items: center;
     padding: 30px 10px;
@@ -45,17 +46,16 @@ label{
 }
 
 input{
-    width: 500px;
-    max-width: 100%;
+    width: 100%;
     padding-left: 10px;
     margin-bottom: 20px;
+    box-sizing: border-box;
 }
 
 p{
-    width: 500px;
-    max-width: 100%;
+    width: 100%;
     align-self: flex-start;
-    margin-left: 5px;
+    margin-left: 0;
     font-size: 12px;
 }
 
@@ -80,4 +80,20 @@ input, button{
 
 p, button{
     cursor: pointer;
+}
+
+@media (max-width: 768px){
+    form{
+        position: relative;
+        top: -40px;
+    }
+}
+
+@media (max-width: 480px){
+    form{
+        position: relative;
+        top: -130px;
+        width: 400px;
+        padding: 15px;
+    }
 }

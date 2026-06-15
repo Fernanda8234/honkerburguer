@@ -120,20 +120,28 @@ button, input[type="checkbox"], #preview{
 } */
 @media (max-width: 768px){
     form{
-        width: 723px;
+        width: 100%;
+        padding: 20px;
     }
 
     textarea{
-        width: 700px;
+        width: 100%;
     }
 }
 
 @media (max-width: 480px){
     form{
-        width: 470px;
+        width: 100%;
+        padding: 15px;
     }
 
     textarea{
-        width: 450px;
+        width: 100%;
+        font-size: 18px;
+    }
+
+    #salvar{
+        position: relative;
+        top: 15px;
     }
 }

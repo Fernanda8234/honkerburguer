@@ -151,16 +151,16 @@ button, input[type="checkbox"], #preview{
 
     textarea{
         width: 100%;
+        font-size: 18px;
     }
 
     .botoes{
         flex-direction: column;
         gap: 10px;
-        padding-top: 15px;
+        padding-top: 20px;
     }
 
     #atualizar, #deletar{
-        width: 100%;
-        max-width: 300px;
+        width: 300px;
     }
 }
