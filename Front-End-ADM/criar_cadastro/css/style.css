@@ -30,7 +30,8 @@ header img{
 .conteinerCaixa{
     display: flex;
     flex-direction: row;
-    background-color: #E02000;
+    gap: 10px;
+   
 }
 
 form{
@@ -56,6 +57,7 @@ h2{
 label{
     align-self: flex-start;
     margin-left: 5px;
+    display: flex;
 }
 
 input{
