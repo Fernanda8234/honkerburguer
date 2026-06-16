@@ -7,7 +7,7 @@
 //Padronização de cabeçalho para retorno dos endpoints da API
 const DEFAULT_MESSAGE = {
     api_description:    'API para gerenciar o controle de uma hamburgueria',
-    development:        'Fernanda Mota',
+    development:        'Arcadia System',
     version:            '1.14.06',
     status:             Boolean,
     status_code:        Number,
