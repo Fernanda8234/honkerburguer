@@ -8,7 +8,7 @@ create view vwProduto as
 	from tbl_produto
 		left join 	tbl_produto_combo
 			on tbl_produto.id		= tbl_produto_combo.id_produto
-		inner join  tbl_combo
+		left join  tbl_combo
 			on tbl_combo.id			= tbl_produto_combo.id_combo
             
 		left join tbl_tipo_sabor_produto

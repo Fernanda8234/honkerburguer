@@ -165,13 +165,3 @@ insert into tbl_tipo_sabor_produto (id_tipo_sabor,
                                      4),
                                     (4,
                                      5);
-                                     
-#Verificando quais os dados da tabela
-select * from tbl_administrador;
-select * from tbl_produto;
-select * from tbl_tipo_sabor;
-select * from tbl_categoria;
-select * from tbl_combo;
-select * from tbl_produto_combo;
-select * from tbl_produto_categoria;
-select * from tbl_tipo_sabor_produto;
