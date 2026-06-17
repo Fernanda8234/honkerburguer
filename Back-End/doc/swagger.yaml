@@ -1,4 +1,5 @@
 openapi: 3.0.3
+
 info:
   title: Cardápio Virtual - Hamburgueria
   description: API pública para gerenciamento do cardápio virtual da hamburgueria (Projeto SENAI).
@@ -13,12 +14,13 @@ servers:
 tags:
   - name: PRODUTO
   - name: ADMINISTRADOR
-  - name: IGREDIENTE
+  - name: INGREDIENTE
   - name: CATEGORIA
   - name: TIPO_SABOR
-
+  - name: COMBO
 
 paths:
+
   /v1/senai/hamburgueria/produtos:
     get:
       tags: [PRODUTO]
@@ -26,13 +28,13 @@ paths:
       description: Retorna uma lista com todos os produtos cadastrados no cardápio.
       responses:
         '200':
-          description: Lista de produtos retornado com sucesso.
+          description: Lista de produtos retornada com sucesso.
           content:
-            application:json:
+            application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/produto'
+                  $ref: '#/components/schemas/Produto'
         '500':
           description: Erro interno no servidor.
 
@@ -43,40 +45,42 @@ paths:
       requestBody:
         required: true
         content:
-          application:json:
+          application/json:
             schema:
-              $ref: '#/components/schemas/produtoInput'
+              $ref: '#/components/schemas/ProdutoInput'
       responses:
         '201':
           description: Produto criado com sucesso.
           content:
-            application:json:
+            application/json:
               schema:
-                $ref: '#/components/schemas/produto'
+                $ref: '#/components/schemas/Produto'
         '400':
           description: Dados de entrada inválidos.
         '500':
           description: Erro interno no servidor.
 
-  /v1/senai/hamburgueria/produtos{id}:
+  /v1/senai/hamburgueria/produtos/{id}:
     parameters:
       - name: id
         in: path
         required: true
-        description: ID numérico do produto
+        description: ID numérico do produto.
         schema:
           type: integer
+          example: 1
 
     get:
       tags: [PRODUTO]
       summary: Busca um produto pelo ID
+      description: Retorna os dados completos de um produto específico pelo seu identificador.
       responses:
         '200':
-          description: Produto encontrada.
+          description: Produto encontrado.
           content:
-            application:json:
+            application/json:
               schema:
-                $ref: '#/components/schemas/Classificacao'
+                $ref: '#/components/schemas/Produto'
         '400':
           description: ID inválido.
         '404':
@@ -87,10 +91,11 @@ paths:
     put:
       tags: [PRODUTO]
       summary: Atualiza um produto existente
+      description: Atualiza os dados de um produto específico pelo seu identificador.
       requestBody:
         required: true
         content:
-          application:json:
+          application/json:
             schema:
               $ref: '#/components/schemas/ProdutoInput'
       responses:
@@ -99,28 +104,45 @@ paths:
         '400':
           description: ID ou dados inválidos.
         '404':
-          description: Produtos não encontrados.
+          description: Produto não encontrado.
         '500':
           description: Erro interno no servidor.
 
     delete:
       tags: [PRODUTO]
       summary: Exclui um produto pelo ID
+      description: Remove permanentemente um produto do cardápio pelo seu identificador.
       responses:
         '200':
           description: Produto excluído.
         '400':
           description: ID inválido.
         '404':
-          description: Produto não encontrada.
+          description: Produto não encontrado.
         '500':
           description: Erro interno no servidor.
 
-  
+  /v1/senai/hamburgueria/administradores:
+    get:
+      tags: [ADMINISTRADOR]
+      summary: Lista todos os administradores
+      description: Retorna uma lista com todos os administradores cadastrados no sistema.
+      responses:
+        '200':
+          description: Lista de administradores retornada com sucesso.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Administrador'
+        '500':
+          description: Erro interno no servidor.
+
     post:
       tags: [ADMINISTRADOR]
       summary: Cria um novo administrador
-      description: Cadastra um novo administrador.
+      description: Cadastra um novo administrador no sistema.
       requestBody:
         required: true
         content:
@@ -140,16 +162,22 @@ paths:
       - name: id
         in: path
         required: true
-        description: ID numérico do administrador
+        description: ID numérico do administrador.
         schema:
           type: integer
+          example: 1
 
     get:
       tags: [ADMINISTRADOR]
       summary: Busca um administrador pelo ID
+      description: Retorna os dados de um administrador específico pelo seu identificador.
       responses:
         '200':
           description: Administrador encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Administrador'
         '400':
           description: ID inválido.
         '404':
@@ -160,6 +188,7 @@ paths:
     put:
       tags: [ADMINISTRADOR]
       summary: Atualiza um administrador existente
+      description: Atualiza os dados de um administrador específico pelo seu identificador.
       requestBody:
         required: true
         content:
@@ -179,6 +208,7 @@ paths:
     delete:
       tags: [ADMINISTRADOR]
       summary: Exclui um administrador pelo ID
+      description: Remove permanentemente um administrador do sistema pelo seu identificador.
       responses:
         '200':
           description: Administrador excluído.
@@ -191,7 +221,7 @@ paths:
 
   /v1/senai/hamburgueria/ingredientes:
     get:
-      tags: [IGREDIENTE]
+      tags: [INGREDIENTE]
       summary: Lista todos os ingredientes
       description: Retorna uma lista com todos os ingredientes cadastrados.
       responses:
@@ -207,7 +237,7 @@ paths:
           description: Erro interno no servidor.
 
     post:
-      tags: [IGREDIENTE]
+      tags: [INGREDIENTE]
       summary: Cria um novo ingrediente
       description: Cadastra um novo ingrediente.
       requestBody:
@@ -229,16 +259,22 @@ paths:
       - name: id
         in: path
         required: true
-        description: ID numérico do ingrediente
+        description: ID numérico do ingrediente.
         schema:
           type: integer
+          example: 1
 
     get:
-      tags: [IGREDIENTE]
+      tags: [INGREDIENTE]
       summary: Busca um ingrediente pelo ID
+      description: Retorna os dados de um ingrediente específico pelo seu identificador.
       responses:
         '200':
           description: Ingrediente encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingrediente'
         '400':
           description: ID inválido.
         '404':
@@ -247,8 +283,9 @@ paths:
           description: Erro interno no servidor.
 
     put:
-      tags: [IGREDIENTE]
+      tags: [INGREDIENTE]
       summary: Atualiza um ingrediente existente
+      description: Atualiza os dados de um ingrediente específico pelo seu identificador.
       requestBody:
         required: true
         content:
@@ -266,8 +303,9 @@ paths:
           description: Erro interno no servidor.
 
     delete:
-      tags: [IGREDIENTE]
+      tags: [INGREDIENTE]
       summary: Exclui um ingrediente pelo ID
+      description: Remove permanentemente um ingrediente pelo seu identificador.
       responses:
         '200':
           description: Ingrediente excluído.
@@ -318,16 +356,22 @@ paths:
       - name: id
         in: path
         required: true
-        description: ID numérico da categoria
+        description: ID numérico da categoria.
         schema:
           type: integer
+          example: 1
 
     get:
       tags: [CATEGORIA]
       summary: Busca uma categoria pelo ID
+      description: Retorna os dados de uma categoria específica pelo seu identificador.
       responses:
         '200':
           description: Categoria encontrada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
         '400':
           description: ID inválido.
         '404':
@@ -338,6 +382,7 @@ paths:
     put:
       tags: [CATEGORIA]
       summary: Atualiza uma categoria existente
+      description: Atualiza os dados de uma categoria específica pelo seu identificador.
       requestBody:
         required: true
         content:
@@ -357,6 +402,7 @@ paths:
     delete:
       tags: [CATEGORIA]
       summary: Exclui uma categoria pelo ID
+      description: Remove permanentemente uma categoria pelo seu identificador.
       responses:
         '200':
           description: Categoria excluída.
@@ -407,16 +453,22 @@ paths:
       - name: id
         in: path
         required: true
-        description: ID numérico do tipo de sabor
+        description: ID numérico do tipo de sabor.
         schema:
           type: integer
+          example: 1
 
     get:
       tags: [TIPO_SABOR]
       summary: Busca um tipo de sabor pelo ID
+      description: Retorna os dados de um tipo de sabor específico pelo seu identificador.
       responses:
         '200':
           description: Tipo de sabor encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoSabor'
         '400':
           description: ID inválido.
         '404':
@@ -427,6 +479,7 @@ paths:
     put:
       tags: [TIPO_SABOR]
       summary: Atualiza um tipo de sabor existente
+      description: Atualiza os dados de um tipo de sabor específico pelo seu identificador.
       requestBody:
         required: true
         content:
@@ -446,6 +499,7 @@ paths:
     delete:
       tags: [TIPO_SABOR]
       summary: Exclui um tipo de sabor pelo ID
+      description: Remove permanentemente um tipo de sabor pelo seu identificador.
       responses:
         '200':
           description: Tipo de sabor excluído.
@@ -453,6 +507,103 @@ paths:
           description: ID inválido.
         '404':
           description: Tipo de sabor não encontrado.
+        '500':
+          description: Erro interno no servidor.
+
+  /v1/senai/hamburgueria/combos:
+    get:
+      tags: [COMBO]
+      summary: Lista todos os combos
+      description: Retorna uma lista com todos os combos cadastrados.
+      responses:
+        '200':
+          description: Lista de combos retornada com sucesso.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Combo'
+        '500':
+          description: Erro interno no servidor.
+
+    post:
+      tags: [COMBO]
+      summary: Cria um novo combo
+      description: Cadastra um novo combo.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComboInput'
+      responses:
+        '201':
+          description: Combo criado com sucesso.
+        '400':
+          description: Dados inválidos.
+        '500':
+          description: Erro interno no servidor.
+
+  /v1/senai/hamburgueria/combos/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ID numérico do combo.
+        schema:
+          type: integer
+          example: 1
+
+    get:
+      tags: [COMBO]
+      summary: Busca um combo pelo ID
+      description: Retorna os dados de um combo específico pelo seu identificador.
+      responses:
+        '200':
+          description: Combo encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Combo'
+        '400':
+          description: ID inválido.
+        '404':
+          description: Combo não encontrado.
+        '500':
+          description: Erro interno no servidor.
+
+    put:
+      tags: [COMBO]
+      summary: Atualiza um combo existente
+      description: Atualiza os dados de um combo específico pelo seu identificador.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComboInput'
+      responses:
+        '200':
+          description: Combo atualizado com sucesso.
+        '400':
+          description: Dados inválidos.
+        '404':
+          description: Combo não encontrado.
+        '500':
+          description: Erro interno no servidor.
+
+    delete:
+      tags: [COMBO]
+      summary: Exclui um combo pelo ID
+      description: Remove permanentemente um combo pelo seu identificador.
+      responses:
+        '200':
+          description: Combo excluído.
+        '400':
+          description: ID inválido.
+        '404':
+          description: Combo não encontrado.
         '500':
           description: Erro interno no servidor.
 
@@ -464,164 +615,369 @@ components:
       properties:
         id:
           type: integer
-          exemplo: 1
-
+          example: 1
         nome:
           type: string
-          exemplo: "Hambúrguer"
-
+          maxLength: 255
+          example: "X-Bacon Artesanal"
+        preco:
+          type: number
+          format: double
+          example: 32.90
+        url_imagem:
+          type: string
+          maxLength: 255
+          example: "https://storage.hamburgueria.com/produtos/x-bacon.jpg"
         descricao:
           type: string
-          exemplo: "Categoria de hambúrgueres artesanais"
-
+          example: "Hambúrguer artesanal com bacon crocante e queijo cheddar."
+        data_criacao:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:00:00Z"
+        disponibilidade:
+          type: integer
+          description: "0 = indisponível, 1 = disponível"
+          enum: [0, 1]
+          example: 1
+        desconto:
+          type: number
+          format: double
+          example: 5.00
+        data_inicio_campanha:
+          type: string
+          format: date-time
+          nullable: true
+          example: "2024-07-01T00:00:00Z"
+        data_fim_campanha:
+          type: string
+          format: date-time
+          nullable: true
+          example: "2024-07-31T23:59:59Z"
+        classificacao_alimentar:
+          type: string
+          maxLength: 50
+          example: "Normal"
       required:
         - id
         - nome
+        - preco
+        - disponibilidade
 
     ProdutoInput:
       type: object
       properties:
         nome:
           type: string
-          exemplo: "Hambúrguer"
-
+          maxLength: 255
+          example: "X-Salada"
+        preco:
+          type: number
+          format: double
+          example: 28.50
+        url_imagem:
+          type: string
+          maxLength: 255
+          example: "https://storage.hamburgueria.com/produtos/x-salada.jpg"
         descricao:
           type: string
-          exemplo: "Categoria de hambúrgueres artesanais"
-
+          example: "Hambúrguer com alface, tomate e maionese especial."
+        disponibilidade:
+          type: integer
+          enum: [0, 1]
+          example: 1
+        desconto:
+          type: number
+          format: double
+          example: 0.00
+        data_inicio_campanha:
+          type: string
+          format: date-time
+          nullable: true
+          example: null
+        data_fim_campanha:
+          type: string
+          format: date-time
+          nullable: true
+          example: null
+        classificacao_alimentar:
+          type: string
+          maxLength: 50
+          example: "Normal"
       required:
         - nome
+        - preco
+        - disponibilidade
 
     Administrador:
-     type: object
-     properties:
+      type: object
+      properties:
         id:
           type: integer
           example: 1
+        nome:
+          type: string
+          maxLength: 255
+          example: "Matheus Aguiar"
+        email:
+          type: string
+          format: email
+          maxLength: 255
+          example: "matheus@hamburgueria.com"
+        senha:
+          type: string
+          maxLength: 255
+          example: "********"
+        criacao_conta:
+          type: string
+          format: date
+          example: "2024-01-01"
+        data_nascimento:
+          type: string
+          format: date
+          example: "2000-05-20"
+        telefone:
+          type: string
+          maxLength: 20
+          example: "(11) 91234-5678"
+        codigo_acesso:
+          type: integer
+          example: 123456
+      required:
+        - id
+        - nome
+        - email
+        - senha
 
-    nome:
-        type: string
-        example: "Matheus"
+    AdministradorInput:
+      type: object
+      properties:
+        nome:
+          type: string
+          maxLength: 255
+          example: "Carlos Silva"
+        email:
+          type: string
+          format: email
+          maxLength: 255
+          example: "carlos@hamburgueria.com"
+        senha:
+          type: string
+          format: password
+          maxLength: 255
+          example: "Senh@F0rte123"
+        data_nascimento:
+          type: string
+          format: date
+          example: "1995-08-15"
+        telefone:
+          type: string
+          maxLength: 20
+          example: "(11) 98765-4321"
+        codigo_acesso:
+          type: integer
+          example: 654321
+      required:
+        - nome
+        - email
+        - senha
 
-    email:
-      type: string
-      example: "matheus@gmail.com"
+    Ingrediente:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nome:
+          type: string
+          maxLength: 45
+          example: "Queijo Cheddar"
+        descricao:
+          type: string
+          example: "Queijo cheddar cremoso importado."
+        status:
+          type: integer
+          description: "0 = inativo, 1 = ativo"
+          enum: [0, 1]
+          example: 1
+        url_image:
+          type: string
+          maxLength: 255
+          example: "https://storage.hamburgueria.com/ingredientes/cheddar.jpg"
+        id_produto:
+          type: integer
+          example: 1
+      required:
+        - id
+        - nome
+        - status
+        - id_produto
 
-  required:
-    - id
-    - nome
-    - email
+    IngredienteInput:
+      type: object
+      properties:
+        nome:
+          type: string
+          maxLength: 45
+          example: "Bacon Defumado"
+        descricao:
+          type: string
+          example: "Bacon defumado artesanalmente."
+        status:
+          type: integer
+          enum: [0, 1]
+          example: 1
+        url_image:
+          type: string
+          maxLength: 255
+          example: "https://storage.hamburgueria.com/ingredientes/bacon.jpg"
+        id_produto:
+          type: integer
+          example: 1
+      required:
+        - nome
+        - status
+        - id_produto
 
-AdministradorInput:
-  type: object
-  properties:
-    nome:
-      type: string
-      example: "Matheus"
+    Categoria:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nome:
+          type: string
+          maxLength: 100
+          example: "Hambúrguer"
+        descricao:
+          type: string
+          example: "Categoria destinada aos hambúrgueres artesanais."
+      required:
+        - id
+        - nome
 
-    email:
-      type: string
-      example: "matheus@gmail.com"
+    CategoriaInput:
+      type: object
+      properties:
+        nome:
+          type: string
+          maxLength: 100
+          example: "Sobremesas"
+        descricao:
+          type: string
+          example: "Categoria destinada às sobremesas e doces."
+      required:
+        - nome
 
-  required:
-    - nome
-    - email
+    TipoSabor:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        blend:
+          type: integer
+          description: "0 = sabor simples, 1 = blend de sabores"
+          enum: [0, 1]
+          example: 0
+        nome:
+          type: string
+          maxLength: 45
+          example: "Salgado"
+      required:
+        - id
+        - nome
+        - blend
 
-Ingrediente:
-  type: object
-  properties:
-    id:
-      type: integer
-      example: 1
+    TipoSaborInput:
+      type: object
+      properties:
+        blend:
+          type: integer
+          enum: [0, 1]
+          example: 0
+        nome:
+          type: string
+          maxLength: 45
+          example: "Picante"
+      required:
+        - nome
+        - blend
 
-    nome:
-      type: string
-      example: "Queijo Cheddar"
+    Combo:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nome:
+          type: string
+          maxLength: 150
+          example: "Combo Clássico"
+      required:
+        - id
+        - nome
 
-    descricao:
-      type: string
-      example: "Queijo cheddar cremoso"
+    ComboInput:
+      type: object
+      properties:
+        nome:
+          type: string
+          maxLength: 150
+          example: "Combo Clássico"
+      required:
+        - nome
 
-  required:
-    - id
-    - nome
+    ProdutoCombo:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        id_produto:
+          type: integer
+          example: 2
+        id_combo_produto:
+          type: integer
+          example: 1
+      required:
+        - id
+        - id_produto
+        - id_combo_produto
 
-IngredienteInput:
-  type: object
-  properties:
-    nome:
-      type: string
-      example: "Queijo Cheddar"
+    ProdutoCategoria:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        id_categoria:
+          type: integer
+          example: 1
+        id_produto:
+          type: integer
+          example: 2
+      required:
+        - id
+        - id_categoria
+        - id_produto
 
-    descricao:
-      type: string
-      example: "Queijo cheddar cremoso"
-
-  required:
-    - nome
-
-Categoria:
-  type: object
-  properties:
-    id:
-      type: integer
-      example: 1
-
-    nome:
-      type: string
-      example: "Hambúrguer"
-
-    descricao:
-      type: string
-      example: "Categoria destinada aos hambúrgueres"
-
-  required:
-    - id
-    - nome
-
-CategoriaInput:
-  type: object
-  properties:
-    nome:
-      type: string
-      example: "Hambúrguer"
-
-    descricao:
-      type: string
-      example: "Categoria destinada aos hambúrgueres"
-
-  required:
-    - nome
-
-TipoSabor:
-  type: object
-  properties:
-    id:
-      type: integer
-      example: 1
-
-    nome:
-      type: string
-      example: "Salgado"
-
-    descricao:
-      type: string
-      example: "Produtos com sabor salgado"
-
-  required:
-    - id
-    - nome
-
-TipoSaborInput:
-  type: object
-  properties:
-    nome:
-      type: string
-      example: "Salgado"
-
-    descricao:
-      type: string
-      example: "Produtos com sabor salgado"
-
-  required:
-    - nome
+    TipoSaborProduto:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        descricao:
+          type: string
+          example: "Blend de carnes nobres com toque defumado."
+        id_tipo_sabores:
+          type: integer
+          example: 1
+        id_produto:
+          type: integer
+          example: 2
+      required:
+        - id
+        - id_tipo_sabores
+        - id_produto
