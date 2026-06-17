@@ -30,61 +30,78 @@
 
                 <div class="conteinerCaixa">
                     <div class="caixa1">
-                        <label for="name">Nome Completo</label>
-                        <input type="text" id="name">
 
-                        <label>Data de Nascimento</label>
-                        <div>
-                            <select id="dia" name="dia" required>
-                                <option value="">Dia</option>
-                            </select>
+                        <div class="containerNome">
 
-                            <select id="mes" name="mes" required>
-                                <option value="">Mês</option>
-                                <option value="1">Janeiro</option>
-                                <option value="2">Fevereiro</option>
-                                <option value="3">Março</option>
-                                <option value="4">Abril</option>
-                                <option value="5">Maio</option>
-                                <option value="6">Junho</option>
-                                <option value="7">Julho</option>
-                                <option value="8">Agosto</option>
-                                <option value="9">Setembro</option>
-                                <option value="10">Outubro</option>
-                                <option value="11">Novembro</option>
-                                <option value="12">Dezembro</option>
-                            </select>
+                            <label for="name">Nome Completo</label>
+                            <input type="text" id="name">
 
-                            <select id="ano" name="ano" required>
-                                <option value="">Ano</option>
-                            </select>
+                            <label>Data de Nascimento</label>
+                            <div>
+                                <select id="dia" name="dia" required>
+                                    <option value="">Dia</option>
+                                </select>
+
+                                <select id="mes" name="mes" required>
+                                    <option value="">Mês</option>
+                                    <option value="1">Janeiro</option>
+                                    <option value="2">Fevereiro</option>
+                                    <option value="3">Março</option>
+                                    <option value="4">Abril</option>
+                                    <option value="5">Maio</option>
+                                    <option value="6">Junho</option>
+                                    <option value="7">Julho</option>
+                                    <option value="8">Agosto</option>
+                                    <option value="9">Setembro</option>
+                                    <option value="10">Outubro</option>
+                                    <option value="11">Novembro</option>
+                                    <option value="12">Dezembro</option>
+                                </select>
+
+                                <select id="ano" name="ano" required>
+                                    <option value="">Ano</option>
+                                </select>
+                            </div>
+
+                            <script>
+                                // Dias
+                                for (let i = 1; i <= 31; i++) {
+                                    dia.innerHTML += `<option value="${i}">${i}</option>`;
+                                }
+
+                                // Anos (1900 até o ano atual)
+                                const anoAtual = new Date().getFullYear();
+
+                                for (let i = anoAtual; i >= 1900; i--) {
+                                    ano.innerHTML += `<option value="${i}">${i}</option>`;
+                                }
+                            </script>
+
                         </div>
 
-                        <script>
-                            // Dias
-                            for (let i = 1; i <= 31; i++) {
-                                dia.innerHTML += `<option value="${i}">${i}</option>`;
-                            }
+                        <div class="caixaTellAlinhamento">
 
-                            // Anos (1900 até o ano atual)
-                            const anoAtual = new Date().getFullYear();
+                            <div class="conteinerTelefone">
 
-                            for (let i = anoAtual; i >= 1900; i--) {
-                                ano.innerHTML += `<option value="${i}">${i}</option>`;
-                            }
-                        </script>
+                                <label for="phone">Telefone</label>
+                                <input type="tel" id="phone" placeholder="(99) 99999-9999" required>
 
-                        <label for="phone">Telefone</label>
-                        <input type="tel" id="phone" placeholder="(99) 99999-9999" required>
+                            </div>
 
-                        <label for="persona">alinhamento:</label>
-                        <select id="persona" name="persona">
-                            <option value="">persona</option>
-                            <option value="Villan">Vilão</option>
-                            <option value="hero">Herói</option>
-                        </select>
+                            <div class="conteinerAlinhamento">
+                                <label for="persona">alinhamento:</label>
+                                <select id="persona" name="persona">
+                                    <option value="">persona</option>
+                                    <option value="Villan">Vilão</option>
+                                    <option value="hero">Herói</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+
+
                     </div>
-
 
                     <div class="caixa2">
                         <label for="login">E-mail</label>
@@ -99,6 +116,21 @@
                     </div>
                 </div>
 
+                <div class="dataCriacao">
+                    <label for="dataCriacao">Data de Criação da Conta</label>
+                    <input type="text" id="dataCriacao" readonly>
+                </div>
+                
+                <script>
+                    const hoje = new Date();
+                
+                    const dia = String(hoje.getDate()).padStart(2, '0');
+                    const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+                    const ano = hoje.getFullYear();
+                
+                    document.getElementById('dataCriacao').value =
+                        `${dia}/${mes}/${ano}`;
+                </script>
 
                 <div class="botaoCriar">
                     <button>Criar conta</button>
