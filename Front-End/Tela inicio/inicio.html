@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/inicio.css">
-    <link rel="stylesheet" href="./css/resete.css">
+    <link rel="stylesheet" href="../css/resete.css">
+    <link rel="stylesheet" href="./inicio.css">
     <title>Honker Burguer - Hamburgueria Temática</title>
 </head>
 <body>
@@ -15,12 +15,13 @@
         <div class="abas">
             <h2>CATÁLOGO</h2>
             <h2>CATEGORIAS</h2>
-            <input type="text" id="buscar" placeholder="Buscar lanches, combos ....">
+            <h2>COMBOS</h2>
+            <input class="buscar" type="search" id="buscar" placeholder="Buscar ....">
         </div>
     </header>
     <main>
         <div class="topo">
-            <div>
+            <div class="mensagem">
                 <h2>SMASH HERO</h2>
                 <p>hambúgueres artesanais com smash suculento e </p>
                 <p>sabores dignos de verdadeiros heróis</p>
@@ -30,7 +31,7 @@
             </div>
         </div>
         <!-- Grade onde as caixas de lanches vão aparecer dinamicamente -->
-        <div id="containerContatos" class="grade-contatos">
+        <div id="containerContatos" class="grade-lanches">
             <!-- Os cards dos lanches serão injetados pelo JavaScript -->
         </div>
     </main>
