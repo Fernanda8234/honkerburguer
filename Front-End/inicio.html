@@ -1,17 +1,10 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 421c77480bd36694a4b76b9af37bba74002a5766
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/inicio.css">
     <link rel="stylesheet" href="./css/resete.css">
-    <link rel="stylesheet" href="./css/style.css">
     <title>Honker Burguer - Hamburgueria Temática</title>
 </head>
 <body>
@@ -19,21 +12,26 @@
         <div class="logo">
             <img src="./imagens/logo.png" alt="logo">
         </div>
+        <div class="abas">
+            <h2>CATÁLOGO</h2>
+            <h2>CATEGORIAS</h2>
+            <input type="text" id="buscar" placeholder="Buscar lanches, combos ....">
+        </div>
     </header>
     <main>
-        <section class="hero">
-            <div class="titulo">
-                <h1 class="titulo1">HONKER </h1>
-                <h1 class="titulo2">BURGUER</h1>
-                <h2 class="subtitulo">Sabores que salvam o dia</h2>
-                <p class="textoHamburguer">Hambúgueres artesanais inspirados no universo dos quadrinhos</p>
-                <button id="btn-catalogo" class="catalogo">CATÁLOGO</button>
+        <div class="topo">
+            <div>
+                <h2>SMASH HERO</h2>
+                <p>hambúgueres artesanais com smash suculento e </p>
+                <p>sabores dignos de verdadeiros heróis</p>
             </div>
-        </section>
-        
-        <div class="sobre-nos">
-            <h2>SOBRE NÓS</h2>
-            <img src="./imagens/historia.png" alt="Nossa historia">
+            <div>
+                <img src="./imagens/cidade.png" alt="cidade">
+            </div>
+        </div>
+        <!-- Grade onde as caixas de lanches vão aparecer dinamicamente -->
+        <div id="containerContatos" class="grade-contatos">
+            <!-- Os cards dos lanches serão injetados pelo JavaScript -->
         </div>
     </main>
     <footer>
@@ -56,6 +54,6 @@
             <img src="./imagens/bat.png" alt="empresa">
             <p>DESENVOLVIDO POR ARCADIA SOFTWARES</p>
         </div>
-    </footer>    
+    </footer>
 </body>
 </html>
