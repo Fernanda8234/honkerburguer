@@ -4,9 +4,10 @@ const bodyParser    = require('body-parser')
 
 //Importando arquivo categoria da controller
 const categoriaController = require('../controller/categoria/controller_categoria.js');
+const authToken = require('../middleware/authToken.js')
 
 //Endpoint para inserir uma nova categoria
-router.post('/', bodyParser.json(), async function(request, response){
+router.post('/', authToken.autenticarToken, bodyParser.json(), async function(request, response){
     //Recebe o conteúdo dentro do body da requisição
     let dados = request.body
 
@@ -38,7 +39,7 @@ router.get('/:id', async function(request, response) {
 })
 
 // Endpoint para Atualizar uma categoria pelo ID 
-router.put('/:id', bodyParser.json(), async function(request, response){
+router.put('/:id', authToken.autenticarToken, bodyParser.json(), async function(request, response){
     // Recebe o content type da requisição
     let contentType = request.headers['content-type']
     // Recebe o ID do registro a ser atualizado
@@ -56,7 +57,7 @@ router.put('/:id', bodyParser.json(), async function(request, response){
 
 
 //Endpoint para Deletar uma categoria pelo ID
-router.delete('/:id', async function (request, response) {
+router.delete('/:id', authToken.autenticarToken, async function (request, response) {
     let id = request.params.id
 
     let result = await categoriaController.excluirByIdCategoria(id)

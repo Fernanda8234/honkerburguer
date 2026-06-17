@@ -12,6 +12,9 @@ const config_message = require('../modulo/configMessages.js')
 //Chama o DAO de produtos
 const administradorDAO = require('../../model/DAO/administrador/administrador.js')
 
+//Chama o arquivo responsavel por gerar o token JWT
+const jwt = require('../../utils/jwt.js')
+
 //Faz a inserção de novos produtos
 const inserirNovoAdm = async function(administrador, contentType){
 
@@ -180,6 +183,46 @@ const excluirByIdAdm = async function(id){
     }
 }
 
+//Valida o email e o codigo de acesso para gerar o token JWT do administrador
+const autenticarAdm = async function(administrador, contentType){
+    let message = JSON.parse(JSON.stringify(config_message))
+
+    try{
+        if(String(contentType).toUpperCase() == 'APPLICATION/JSON'){
+            if(administrador.email === undefined || administrador.email === null || administrador.email === '' ||
+               administrador.codigo_acesso === undefined || administrador.codigo_acesso === null || administrador.codigo_acesso === ''){
+                message.ERROR_BAD_REQUEST.field = '[EMAIL OU CODIGO DE ACESSO] INVALIDO'
+                return message.ERROR_BAD_REQUEST
+            }else{
+                let result = await administradorDAO.selectByEmailCodigoAdm(administrador)
+
+                if(result){
+                    if(result.length > 0){
+                        const token = jwt.gerarToken(result[0])
+
+                        message.DEFAULT_MESSAGE.status              = message.SUCCESS_RESPONSE.status
+                        message.DEFAULT_MESSAGE.status_code         = message.SUCCESS_RESPONSE.status_code
+                        message.DEFAULT_MESSAGE.message             = 'Login realizado com sucesso!'
+                        message.DEFAULT_MESSAGE.response.token      = token
+                        message.DEFAULT_MESSAGE.response.expiresIn  = '1h'
+                        message.DEFAULT_MESSAGE.response.administrador = result[0]
+
+                        return message.DEFAULT_MESSAGE
+                    }else{
+                        return {status: false, status_code: 401, message: 'Email ou codigo de acesso invalidos.'}
+                    }
+                }else{
+                    return message.ERROR_INTERNAL_SERVER_MODEL
+                }
+            }
+        }else{
+            return message.ERROR_CONTENT_TYPE
+        }
+    }catch(error){
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER
+    }
+}
+
 const validarDados = async function(administrador) {
     let message = JSON.parse(JSON.stringify(config_message))
 
@@ -214,5 +257,6 @@ module.exports = {
     listarAdm,
     buscarByIdAdm,
     excluirByIdAdm,
-    atualizarAdm
+    atualizarAdm,
+    autenticarAdm
 }

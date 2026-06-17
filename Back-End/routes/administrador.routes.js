@@ -5,6 +5,20 @@ const bodyParser    = require('body-parser')
 //Importando arquivo administrador da controller
 const administradorController = require('../controller/administrador/controller_administrador');
 
+//Endpoint para realizar login do ADM e gerar o token JWT
+router.post('/login', bodyParser.json(), async function(request, response){
+    //Recebe o conteudo dentro do body da requisicao
+    let dados = request.body
+
+    //Recebe o content type da requisicao para validar se e um JSON
+    let contentType = request.headers['content-type']
+
+    let result = await administradorController.autenticarAdm(dados, contentType)
+
+    response.status(result.status_code)
+    response.json(result)
+})
+
 //Endpoint para inserir um novo ADM
 router.post('/', bodyParser.json(), async function(request, response){
     //Recebe o conteúdo dentro do body da requisição

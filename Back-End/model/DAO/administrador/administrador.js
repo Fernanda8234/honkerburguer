@@ -106,6 +106,25 @@ const selectByIdAdm  = async function(id){
     }
 }
 
+//Busca um administrador pelo email e codigo de acesso para realizar o login
+const selectByEmailCodigoAdm = async function(administrador){
+    try {
+        let sql = `select id, nome, email from tbl_administrador
+                    where email='${administrador.email}'
+                      and codigo_acesso='${administrador.codigo_acesso}'`
+
+        let result = await knexConex.raw(sql)
+
+        if(Array.isArray(result)){
+            return result[0]
+        }else return false
+
+    } catch (error) {
+        console.log(error)
+        return false
+    }
+}
+
 const deleteByIdAdm  = async function(id){
     try{
         let sql = `delete from tbl_administrador
@@ -129,5 +148,6 @@ module.exports = {
     updateAdm,
     selectAllAdm,
     selectByIdAdm,
+    selectByEmailCodigoAdm,
     deleteByIdAdm
 }
