@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/resete.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <title>Área Administrativa</title>
+</head>
+
+<body>
+    <header>
+        <img src="./img/menu.png" alt="">
+    </header>
+    <main>
+        <div class="container">
+            <form action="/login" method="post">
+
+                <div class="titulo">
+                    <h2>Criar nova conta</h2>
+                </div>
+
+                <div class="conteinerCaixa">
+                    <div class="caixa1">
+                        <label for="name">Nome Completo</label>
+                        <input type="text" id="name">
+
+                        <label>Data de Nascimento</label>
+                        <div>
+                            <select id="dia" name="dia" required>
+                                <option value="">Dia</option>
+                            </select>
+
+                            <select id="mes" name="mes" required>
+                                <option value="">Mês</option>
+                                <option value="1">Janeiro</option>
+                                <option value="2">Fevereiro</option>
+                                <option value="3">Março</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Maio</option>
+                                <option value="6">Junho</option>
+                                <option value="7">Julho</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Setembro</option>
+                                <option value="10">Outubro</option>
+                                <option value="11">Novembro</option>
+                                <option value="12">Dezembro</option>
+                            </select>
+
+                            <select id="ano" name="ano" required>
+                                <option value="">Ano</option>
+                            </select>
+                        </div>
+
+                        <script>
+                            // Dias
+                            for (let i = 1; i <= 31; i++) {
+                                dia.innerHTML += `<option value="${i}">${i}</option>`;
+                            }
+
+                            // Anos (1900 até o ano atual)
+                            const anoAtual = new Date().getFullYear();
+
+                            for (let i = anoAtual; i >= 1900; i--) {
+                                ano.innerHTML += `<option value="${i}">${i}</option>`;
+                            }
+                        </script>
+
+                        <label for="phone">Telefone</label>
+                        <input type="tel" id="phone" placeholder="(99) 99999-9999" required>
+
+                        <label for="persona">alinhamento:</label>
+                        <select id="persona" name="persona">
+                            <option value="">persona</option>
+                            <option value="Villan">Vilão</option>
+                            <option value="hero">Herói</option>
+                        </select>
+                    </div>
+
+
+                    <div class="caixa2">
+                        <label for="login">E-mail</label>
+                        <input type="text" id="login" placeholder="heroi@super.com" required>
+
+                        <label for="password">Senha</label>
+                        <input type="password" id="password" placeholder="heroi123" required>
+
+
+                        <label for="code">Código de Acesso</label>
+                        <input type="text" id="code" inputmode="numeric" placeholder="123456" required>
+                    </div>
+                </div>
+
+
+                <div class="botaoCriar">
+                    <button>Criar conta</button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/resete.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <title>Área Administrativa</title>
+</head>
+<body>
+    <header>
+        <img src="./img/menu.png" alt="">
+    </header>
+    <main>
+        <div class="container">
+            <form action="/login" method="post">
+                <h2>Área Administrativa</h2>
+                <label for="login">E-mail ou Usuário</label>
+                <input type="text" id="login" placeholder="heroi@super.com" required>
+
+                <label for="password">Senha</label>
+                <input type="password" id="password" placeholder="heroi123" required>
+
+                <label for="code">Código de Acesso</label>
+                <input type="text" id="code" inputmode="numeric" placeholder="123456" required>
+                <p>se não possui conta, <b>cadastre-se aqui</b></p>
+                <button>Entrar</button>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
