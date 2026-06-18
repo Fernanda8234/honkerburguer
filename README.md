@@ -52,13 +52,13 @@ A proposta do projeto utiliza elementos como
 
 ## 👥 Equipe
 
- Nome            Função 
- --------------  ------ 
- Aryely Hevylyn  banco de dados 
- Gustavo         projetos
- Matheus         back-end 
- Fernanda        full-stack 
- Gabriel         front-end
+| Nome | Função |
+|------|--------|
+| Aryely Hevylyn | Banco de dados |
+| Gustavo | Projetos |
+| Matheus | Back-end |
+| Fernanda | Full-stack |
+| Gabriel | Front-end |
 
 ---
 
@@ -135,22 +135,118 @@ DELETE adminprodutosid
 
 ---
 
+
 ## 📋 Banco de Dados
 
-### Produto
+O banco de dados foi estruturado para armazenar as informações dos produtos, administradores, categorias, sabores, ingredientes e relacionamentos necessários para o funcionamento da aplicação.
 
-Campos principais
+### 🛒 Produto (`tbl_produto`)
 
- id
- nome
- descrição
- preço
- imagem
- categoria
+Tabela principal responsável por armazenar as informações dos produtos disponíveis no sistema.
 
-(Adicionar outras tabelas)
+**Campos principais:**
+- id
+- nome
+- descrição
+- preço
+- imagem
+- disponibilidade
+- desconto
+- datas de campanha
+- classificação alimentar
+- tipo de produto
 
----
+
+### 👤 Administrador (`tbl_administrador`)
+
+Tabela responsável por armazenar os dados dos usuários administradores que possuem acesso ao painel administrativo.
+
+**Campos principais:**
+- id
+- nome
+- email
+- senha
+- data de nascimento
+- telefone
+- código de acesso
+
+
+### 🏷️ Categoria (`tbl_categoria`)
+
+Tabela responsável por identificar a categoria dos produtos, como hambúrgueres, bebidas, acompanhamentos e combos.
+
+**Campos principais:**
+- id
+- nome
+- descrição
+
+
+### 🔗 Produto Categoria (`tbl_produto_categoria`)
+
+Tabela intermediária responsável pelo relacionamento entre produtos e categorias, permitindo que um produto possua uma ou mais classificações.
+
+
+### 🥤 Tipo de Produto (`tbl_tipo_produto`)
+
+Tabela utilizada para definir o tipo do produto cadastrado, como bebida, lanche, combo, entre outros.
+
+**Campos principais:**
+- id
+- tipo
+
+
+### 🍔 Sabor (`tbl_sabor`)
+
+Tabela responsável pelo armazenamento dos sabores relacionados aos produtos.
+
+**Campos principais:**
+- id
+- descrição
+- tipo de sabor
+- produto relacionado
+
+
+### 🔗 Tipo de Sabor (`tbl_tipo_sabor`)
+
+Tabela utilizada para identificar o tipo do sabor, como carne, frango, entre outros.
+
+**Campos principais:**
+- id
+- nome
+
+
+### 🧾 Ingredientes (`tbl_ingredientes`)
+
+Tabela responsável por armazenar os ingredientes que podem ser exibidos na descrição dos produtos.
+
+**Campos principais:**
+- id
+- nome
+- descrição
+- status
+- imagem
+
+
+### 📦 Combo Produto (`tbl_combo_produto`)
+
+Tabela intermediária responsável por relacionar os produtos que fazem parte de um combo, evitando repetição de dados.
+
+**Campos principais:**
+- id
+- quantidade do produto
+- produto relacionado
+
+
+### ⚙️ Produto Administrador (`tbl_produto_admin`)
+
+Tabela responsável por registrar o gerenciamento dos produtos realizado pelos administradores.
+
+**Campos principais:**
+- id
+- produto
+- administrador responsável
+- data de atualização
+- data de remoção
 
 ## 🔐 Autenticação ADM
 
