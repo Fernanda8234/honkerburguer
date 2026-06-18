@@ -107,5 +107,8 @@ create table tbl_tipo_sabor_produto(
 	references tbl_produto(id)
 );
 
+<<<<<<< HEAD
 select * from tbl_produto;
+=======
+>>>>>>> b96b738a995347d84c090b6ae73bb5e6fcba0425
 show tables;

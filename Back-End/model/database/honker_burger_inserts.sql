@@ -125,11 +125,11 @@ insert into tbl_combo (nome
 insert into tbl_produto_combo (id_produto,
                                id_combo
                                )values
-                               (1,
+                               (8,
                                 1),
-                               (2,
+                               (7,
                                 2),
-                               (3,
+                               (6,
                                 3),
                                (4,
                                 4),
@@ -140,11 +140,11 @@ insert into tbl_produto_combo (id_produto,
 insert into tbl_produto_categoria (id_produto,
                                    id_categoria
                                    )values
-                                   (1,
+                                   (8,
                                     1),
-                                   (2,
+                                   (7,
                                     2),
-                                   (3,
+                                   (6,
                                     4),
                                    (4,
                                     1),
@@ -156,12 +156,16 @@ insert into tbl_tipo_sabor_produto (id_tipo_sabor,
                                     id_produto
                                     )values
                                     (1,
-                                     1),
+                                     8),
                                     (1,
-                                     2),
+                                     7),
                                     (3,
-                                     3),
+                                     6),
                                     (2,
                                      4),
                                     (4,
+<<<<<<< HEAD
                                      5);
+=======
+                                     5);
+>>>>>>> b96b738a995347d84c090b6ae73bb5e6fcba0425
