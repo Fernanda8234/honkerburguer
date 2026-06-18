@@ -107,14 +107,5 @@ create table tbl_tipo_sabor_produto(
 	references tbl_produto(id)
 );
 
-#Retorna quais os campos das tabelas
-desc tbl_administrador;
-desc tbl_produto;
-desc tbl_tipo_sabor;
-desc tbl_categoria;
-desc tbl_combo;
-desc tbl_produto_combo;
-desc tbl_produto_categoria;
-desc tbl_tipo_sabor_produto;
-
+select * from tbl_produto;
 show tables;

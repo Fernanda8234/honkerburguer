@@ -11,12 +11,14 @@ const router = express.Router()
 const controllerVwProduto = require('../controller/vwproduto/controller_vwproduto')
 
 router.get('/', async function(request, response){
-
-    let result = await controllerVwProduto.listarVwProduto()
-
-    response.status(result.status_code)
-    response.json(result)
-
+    try {
+        let result = await controllerVwProduto.listarVwProduto()
+        
+        return response.status(result.status_code || 200).json(result)
+    } catch (error) {
+        console.error(error)
+        return response.status(500).json({ status: false, status_code: 500, message: "Erro interno na rota." })
+    }
 })
 
 module.exports = router

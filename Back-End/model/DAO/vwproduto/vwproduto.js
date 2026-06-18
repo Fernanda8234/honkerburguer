@@ -22,10 +22,10 @@ const selectAllVwProduto = async function(){
 
         let result = await knexConex.raw(sql)
 
-        if(Array.isArray(result)){
-            return result[0]
-        }else{
-            return false
+        if (result && Array.isArray(result) && result[0]) {
+        return result[0]; // Retorna apenas as linhas da View
+        } else {
+            return false;
         }
 
     } catch (error) {
