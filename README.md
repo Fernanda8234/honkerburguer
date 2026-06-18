@@ -150,31 +150,6 @@ GET, POST, PUT, DELETE
 
 ---
 
-### Administrador
-
-Cadastrar produto
-
-```bash
-POST adminprodutos
-```
-
-Atualizar produto
-
-```bash
-PUT adminprodutosid
-```
-
-Excluir produto
-
-```bash
-DELETE adminprodutosid
-```
-
-(Adicionar outros endpoints)
-
----
-
-
 ## 📋 Banco de Dados
 
 O banco de dados foi estruturado para armazenar as informações dos produtos, administradores, categorias, sabores, ingredientes e relacionamentos necessários para o funcionamento da aplicação.
@@ -321,33 +296,31 @@ npm install
 
 <img width="800" height="512" alt="Gravando2026-06-17112208-ezgif com-optimize" src="https://github.com/user-attachments/assets/d4e6c021-83a9-4ace-82f5-081a40648598" />
 
-Adicionar imagens ou GIFs mostrando
-
- Página inicial;
- Catálogo de produtos;
- Área administrativa;
- Cadastro de produtos.
 
 ---
 
 ## 📚 Documentação
 
-### Problema identificado
+## Problema que o projeto busca solucionar
 
-Descrever o problema que o projeto busca solucionar.
+Muitas hamburguerias possuem dificuldades em apresentar seus produtos de forma organizada e atrativa, além de não possuírem uma forma prática de gerenciar as informações do catálogo.
 
 ### Justificativa
 
-Explicar a importância da criação da aplicação.
+Pensando nisso, o projeto busca desenvolver uma aplicação que facilite a visualização dos produtos pelos clientes através de uma landing page temática e permita que administradores gerenciem o catálogo de forma simples e organizada, mantendo as informações dos produtos atualizadas.
 
 ### Metodologia
 
-Exemplo
+O desenvolvimento do projeto foi realizado utilizando a metodologia ágil, permitindo uma organização das tarefas, divisão das responsabilidades entre a equipe e acompanhamento contínuo da evolução da aplicação.
 
- Levantamento de requisitos;
- Desenvolvimento da API;
- Criação do banco de dados;
- Testes da aplicação.
+**As principais etapas do desenvolvimento foram:**
+
+- Levantamento e análise de requisitos;
+- Criação do protótipo e definição da interface da aplicação;
+- Modelagem e desenvolvimento do banco de dados;
+- Desenvolvimento da API e integração com o sistema;
+- Desenvolvimento do front-end da área do cliente e administrador;
+- Realização de testes e ajustes da aplicação.
 
 ### Requisitos Funcionais
 
