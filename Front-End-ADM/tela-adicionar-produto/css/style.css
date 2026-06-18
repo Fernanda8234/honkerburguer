@@ -13,7 +13,7 @@ header img{
     margin-left: 25px;
 }
 
-#cancelar{
+#voltar{
     background-color: #ffffff;
     font-size: 22px;
     width: 100px;
@@ -38,6 +38,13 @@ form{
     gap: 10px;
 }
 
+section{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
 input[type="file"]{
     display: none;
 }
@@ -50,7 +57,7 @@ label{
     font-size: 25px;
 }
 
-input{
+input, select{
     font-size: 18px;
 }
 
@@ -60,7 +67,10 @@ input{
 }
 
 input[type="text"],
-input[type="number"]{
+input[type="number"],
+input[type="url"],
+input[type="datetime-local"],
+select{
     width: 800px;
     max-width: 100%;
     padding-left: 10px;
@@ -92,32 +102,33 @@ input[type="checkbox"]{
     height: 30px;
 }
 
-#salvar{
-    color: #ffffff;
-    background-color: #A4E3A4;
-    width: 250px;
-    font-size: 25px;
+.botoes{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
-#cancelar, form, #salvar{
+#salvar{
+    width: 250px;
+    font-size: 25px;
+    background-color: #9eff92;
+}
+
+#voltar, form, #salvar{
     font-family: "Bebas Neue", sans-serif;
 }
 
-input, button{
+input, select, button{
     border: 1px solid rgb(0, 0, 0);
     border-radius: 6px;
     height: 40px;
 }
 
-button, input[type="checkbox"], #preview{
+button, input[type="checkbox"], select, #preview{
     cursor: pointer;
 }
 
-/* textarea{
-    resize: none;
-    resize: horizontal;
-    resize: vertical;
-} */
 @media (max-width: 768px){
     form{
         width: 100%;
@@ -141,7 +152,6 @@ button, input[type="checkbox"], #preview{
     }
 
     #salvar{
-        position: relative;
-        top: 15px;
+        width: 300px;
     }
 }
