@@ -33,7 +33,7 @@ create table tbl_produto(
 	id         				int not null primary key auto_increment,
 	nome                    varchar(255) not null,
 	preco                   decimal(10,2) not null,
-	url_imagem              varchar(255) not null,
+	url_imagem              text not null,
 	descricao               text not null,
 	disponibilidade         tinyint not null default 1,
     desconto				decimal(5,2) default null,
@@ -106,5 +106,7 @@ create table tbl_tipo_sabor_produto(
 	foreign key (id_produto)
 	references tbl_produto(id)
 );
+
+select * from tbl_produto;
 
 show tables;
