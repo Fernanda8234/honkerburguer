@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Boogaloo&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Balthazar&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alatsi&display=swap');
 
 html,body{
     background-color: #ffe9c1;
@@ -44,6 +45,7 @@ header{
     font-family: "Bangers", system-ui;
     font-weight: 100;
 }
+
 main{
     margin-left: 34px;
     margin-top: 30px;
@@ -56,18 +58,19 @@ main{
     justify-content: center;
     gap: 30px;
     margin-top: 30px;
-}
-
-.topo p{
-    font-weight: 800;
-    font-size: 18px;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-right: 100px;
 }
 
 .topo h2{
     font-family: "Bangers", system-ui;
     font-weight: 400;
-    font-size: 50px;
+    font-size: 65px;
+}
+
+.topo p{
+    font-weight: 200;
+    font-size: 18px;
+    font-family: 'Alatsi', sans-serif;
 }
 
 .buscar {
@@ -109,7 +112,8 @@ footer {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 80px;
+    gap: 250px;
+    font-family: "Bangers", system-ui;
 }
 .dados {
     color: white;

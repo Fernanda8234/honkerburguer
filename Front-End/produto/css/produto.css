@@ -2,29 +2,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Balthazar&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
 
-html,body{
-    background-color: #ffe9c1;
-    height: 100%;
-    margin: 0;
-}
-
 body{
-    display: flex;
-    flex-direction: column;
+    background-color: #ffe9c1;
+    height: 100vh;
 }
 
 header{
-    background-image: url(../imagens/Fundo\ superior.png);
+    background-image: url(../../imagens/Fundo\ superior.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
     height: 116px;
-
     display: flex;
     align-items: center;
     justify-content:space-between;
-    
 }
 
 .logo img{
@@ -39,19 +31,10 @@ header{
     justify-content: center; 
     gap: 40px;
 }
+
 .abas h2{
     color: white;
     font-family: "Bangers", system-ui;
-    font-weight: 100;
-}
-main{
-    margin-left: 34px;
-    margin-top: 30px;
-    flex: 1;
-}
-
-main h2{
-    font-family:"Bangers", system-ui;
     font-weight: 100;
 }
 
@@ -71,26 +54,39 @@ main h2{
     margin-right: 25px;
 }
 
-
-.buscar:focus{
+.buscar:focus {
     border-color: #007bff; 
     box-shadow: 0 6px 12px rgba(0, 123, 255, 0.15); 
     background-color: #fff;
 }
 
-.buscar::placeholder{
+.buscar::placeholder {
     color: #000000be;
 }
 
+main{
+    display: flex;
+    justify-content: center; 
+    align-items: center;  
+    height: 85vh;
+}
+
+
+section{
+    background-color: #fff1d6;
+    border-radius: 10px;
+    width: 90%;
+    height: 90%;
+}
+
 footer{
-    background-image: url(../imagens/Fundo\ inferior.png);
+    margin-top: auto;
+    background-image: url(../../imagens/Fundo\ inferior.png);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     width: 100%;
     height: 100px;
-    min-height: 100px;
-    flex-shrink: 0;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -98,8 +94,11 @@ footer{
     font-family: "Bangers", system-ui;
 }
 
-.dados {
-    color: white;
+footer p{
+    color: #ffffff;
+}
+
+.dados{
     display: flex;
     flex-direction: row;
     align-items: center;
