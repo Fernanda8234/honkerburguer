@@ -102,13 +102,51 @@ HonkerBurger
 
 ## 🔗 Rotas da API
 
+A API possui endpoints separados de acordo com a função de cada área da aplicação. A área do cliente possui acesso apenas à visualização dos produtos, enquanto a área administrativa possui acesso ao gerenciamento dos dados através das operações de CRUD.
+
 ### Cliente
 
-Listar produtos
+Endpoint responsável pela exibição dos produtos no catálogo da aplicação:
 
-```bash
-GET produtos
-```
+GET /v1/senai/hamburgueria/produto
+
+Endpoint de visualização dos produtos utilizando a view:
+
+GET /v1/senai/hamburgueria/vw/produtos
+
+
+### Administrador
+
+Os administradores possuem acesso às rotas responsáveis pelo gerenciamento das informações do sistema.
+
+Produtos:
+
+GET, POST, PUT, DELETE  
+/v1/senai/hamburgueria/produto
+
+
+Categorias:
+
+GET, POST, PUT, DELETE  
+/v1/senai/hamburgueria/categoria
+
+
+Combos:
+
+GET, POST, PUT, DELETE  
+/v1/senai/hamburgueria/combo
+
+
+Administradores:
+
+GET, POST, PUT, DELETE  
+/v1/senai/hamburgueria/administrador
+
+
+Tipos de sabor:
+
+GET, POST, PUT, DELETE  
+/v1/senai/hamburgueria/tipo_sabor
 
 ---
 
