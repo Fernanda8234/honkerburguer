@@ -6,3 +6,7 @@ export async function getProdutos() {
     return response.json()
     
 }
+
+document.getElementById('btn-catalogo').addEventListener('click', () => {
+    window.location.href = "./tela-inicio/inicio.html"
+})

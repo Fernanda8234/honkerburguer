@@ -2,6 +2,11 @@
 
 import { getProdutos } from "../app.js"
 
+const containerProduto = document.querySelector('.grade-produtos');
+const campoBusca = document.getElementById('buscar');
+
+let todosOsProdutos = []; 
+
 const criarCardProduto = (produto) => {
     const cartao = document.createElement('div');
     cartao.classList.add('cartao-produto');
@@ -16,7 +21,7 @@ const criarCardProduto = (produto) => {
     // Nome do Produto
     const nome = document.createElement('h3');
     nome.classList.add('nome-produto');
-    nome.textContent = produto.nome_produto.toUpperCase(); // Força ficar em maiúsculo
+    nome.textContent = produto.nome_produto ? produto.nome_produto.toUpperCase() : 'PRODUTO';
 
     // Linha Divisória (borda ou elemento)
     const linha = document.createElement('hr');
@@ -59,12 +64,11 @@ const carregarProdutos = async () => {
 
     try {
         const respostaApi = await getProdutos();
-        const listaProdutos = respostaApi.response?.vw_produto; 
+        // Guardamos a lista na nossa variável global
+        todosOsProdutos = respostaApi.response?.vw_produto || []; 
         
-        if (Array.isArray(listaProdutos)) {
-            
-            listaProdutos.forEach(criarCardProduto);
-            
+        if (Array.isArray(todosOsProdutos)) {
+            todosOsProdutos.forEach(criarCardProduto);
         } else {
             console.error("A estrutura de produtos na resposta da API não foi encontrada.");
         }
@@ -72,10 +76,45 @@ const carregarProdutos = async () => {
         console.error("Erro ao listar os produtos:", error)
     }
 }
+
+// Função que faz a busca em tempo real conforme digita
+const filtrarProdutos = (evento) => {
+    const textoDigitado = evento.target.value.toLowerCase();
+    
+    // Limpa a tela antes de exibir os filtrados
+    containerProduto.replaceChildren();
+    
+    // Filtra comparando o nome ou a descrição com o que o usuário escreveu
+    const produtosFiltrados = todosOsProdutos.filter(produto => {
+        const nome = produto.nome_produto?.toLowerCase() || '';
+        const descricao = produto.descricao?.toLowerCase() || '';
+        return nome.includes(textoDigitado) || descricao.includes(textoDigitado);
+    });
+    
+    // Se encontrar produtos filtrados, desenha os cards. Se não, mostra aviso.
+    if (produtosFiltrados.length > 0) {
+        produtosFiltrados.forEach(criarCardProduto);
+    } else {
+        const semResultado = document.createElement('p');
+        semResultado.textContent = "Nenhum lanche encontrado com esse nome... 😢";
+        semResultado.style.fontFamily = "'Boogaloo', sans-serif";
+        semResultado.style.fontSize = "22px";
+        semResultado.style.gridColumn = "1 / -1"; 
+        semResultado.style.textAlign = "center";
+        semResultado.style.marginTop = "40px";
+        containerProduto.appendChild(semResultado);
+    }
+}
+
+// Vincula o evento ao seu input de busca
+if (campoBusca) {
+    campoBusca.addEventListener('input', filtrarProdutos);
+}
+
 // Inicializa a listagem
 carregarProdutos();
 
-// Evento do Logo para recarregar
+// Clique que recarrega a página
 document.querySelector('.logo').addEventListener('click', () => {
     window.location.reload();
-})
+});
