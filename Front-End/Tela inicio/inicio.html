@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./inicio.js" defer type="module"></script>
     <link rel="stylesheet" href="../css/resete.css">
     <link rel="stylesheet" href="./inicio.css">
     <title>Honker Burguer - Hamburgueria Temática</title>
@@ -10,7 +11,7 @@
 <body>
     <header>
         <div class="logo">
-            <img src="./imagens/logo.png" alt="logo">
+            <img src="../imagens/logo.png" alt="logo">
         </div>
         <div class="abas">
             <h2>CATÁLOGO</h2>
@@ -20,6 +21,12 @@
         </div>
     </header>
     <main>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <ol>
+              <li><a href="../index.html">HOME</a></li>
+              <li class="atual" aria-current="page">INICIO</li>
+            </ol>
+        </nav>
         <div class="topo">
             <div class="mensagem">
                 <h2>SMASH HERO</h2>
@@ -27,32 +34,33 @@
                 <p>sabores dignos de verdadeiros heróis</p>
             </div>
             <div>
-                <img src="./imagens/cidade.png" alt="cidade">
+                <img src="../imagens/cidade.png" alt="cidade">
             </div>
         </div>
+        
         <!-- Grade onde as caixas de lanches vão aparecer dinamicamente -->
-        <div id="containerContatos" class="grade-lanches">
+        <div id="containerProduto" class="grade-produtos">
             <!-- Os cards dos lanches serão injetados pelo JavaScript -->
         </div>
     </main>
     <footer>
         <div class="dados">
-            <img src="./imagens/Phone.png" alt="Ícone de telefone">
+            <img src="../imagens/Phone.png" alt="Ícone de telefone">
             <div class="contatos">
                 <p>+55 11 98765-0345</p>
                 <p>honkerburguer@gmail.com</p>
             </div>
         </div>
         <div class="dados">
-            <img src="./imagens/Location.png" alt="endereço">
+            <img src="../imagens/Location.png" alt="endereço">
             <p>Av. Marcel Fernando de Yuri</p>
         </div>
         <div class="dados">
-            <img src="./imagens/Speech Bubble.png" alt="redes sociais">
+            <img src="../imagens/Speech Bubble.png" alt="redes sociais">
             <p>@honkerburguer.art</p>
         </div>
         <div class="dados">
-            <img src="./imagens/bat.png" alt="empresa">
+            <img src="../imagens/bat.png" alt="empresa">
             <p>DESENVOLVIDO POR ARCADIA SOFTWARES</p>
         </div>
     </footer>
