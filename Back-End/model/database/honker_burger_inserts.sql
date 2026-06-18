@@ -112,40 +112,7 @@ insert into tbl_categoria (nome,
                            ('Sobremesas',
                             'Doces.');
 
--- 5. Inserts para tbl_ingredientes
-insert into tbl_ingredientes (nome,
-                              descricao,
-                              status_ingredientes,
-                              url_imagem,
-                              id_produto
-                              )values
-                              ('Cheddar',
-                               'Queijo derretido',
-                               1,
-                               'cheddar.png',
-                               1),
-                              ('Bacon',
-                               'Crocante',
-                               1,
-                               'bacon.png',
-                               2),
-                              ('Alface',
-                               'Fresco',
-                               1,
-                               'alface.png',
-                               3),
-                              ('Batata',
-                               'Frita',
-                               1,
-                               'batata.png',
-                               4),
-                              ('Blueberry',
-                               'Fruta',
-                               1,
-                               'berry.png',
-                               5);
-
--- 6. Inserts para tbl_combo
+-- 5. Inserts para tbl_combo
 insert into tbl_combo (nome
                        )values
                        ('Combo Liga'),
@@ -190,11 +157,11 @@ insert into tbl_tipo_sabor_produto (id_tipo_sabor,
                                     )values
                                     (1,
                                      1),
-                                    (1,
+                                    (2,
                                      2),
                                     (3,
                                      3),
-                                    (2,
-                                     4),
                                     (4,
+                                     4),
+                                    (5,
                                      5);

@@ -45,7 +45,11 @@ const inserirNovoProduto = async function(produto, contentType){
                         let resultInsertCategoria = await controller_produto_categoria.inserirProdutoCategoria(produtoCategoria)
 
                         if(!resultInsertCategoria.status){
+<<<<<<< HEAD
                             return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+=======
+                            return message.SUCCESS_CREATED_ITEM_WARNING // 201 com alerta de dados não inseridos
+>>>>>>> back-end-tabelas
                         }
                     }
                 }
@@ -60,7 +64,11 @@ const inserirNovoProduto = async function(produto, contentType){
                         let resultInsertCombo = await controller_produto_combo.inserirProdutoCombo(produtoCombo)
 
                         if(!resultInsertCombo.status){
+<<<<<<< HEAD
                             return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+=======
+                            return message.SUCCESS_CREATED_ITEM_WARNING // 201 com alerta de dados não inseridos
+>>>>>>> back-end-tabelas
                         }
                     }
                 }
@@ -83,7 +91,7 @@ const inserirNovoProduto = async function(produto, contentType){
     }
 }
 
-const atualizarProduto = async function(produto, id, contentType){
+const atualizarProduto = async function(produto, contentType, id){
     let message = JSON.parse(JSON.stringify(config_message))
     
     try{
@@ -93,7 +101,7 @@ const atualizarProduto = async function(produto, id, contentType){
             let resultBuscarID = await buscarByIdProduto(id)
             
             if(resultBuscarID.status){
-                let validar = await validarDados(produto, contentType)
+                let validar = await validarDados(produto)
  
                 if(!validar){
 
@@ -111,13 +119,21 @@ const atualizarProduto = async function(produto, id, contentType){
 
                                     let produtoCategoria = {
                                         "id_produto": produto.id,
+<<<<<<< HEAD
                                         "id_categoria": categoria.id
+=======
+                                        "id_categoria": categoria.id || categoria
+>>>>>>> back-end-tabelas
                                     }
 
                                     let resultInsertCategoria = await controller_produto_categoria.inserirProdutoCategoria(produtoCategoria)
 
                                     if(!resultInsertCategoria.status){
+<<<<<<< HEAD
                                         return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+=======
+                                        return message.SUCCESS_CREATED_ITEM_WARNING // 201 com alerta de dados não inseridos
+>>>>>>> back-end-tabelas
                                     }
                                 }
                             }
@@ -131,13 +147,21 @@ const atualizarProduto = async function(produto, id, contentType){
 
                                     let produtoCombo = {
                                         "id_produto": produto.id,
+<<<<<<< HEAD
                                         "id_combo": combo.id
+=======
+                                        "id_combo": combo.id || combo
+>>>>>>> back-end-tabelas
                                     }
 
                                     let resultInsertCombo = await controller_produto_combo.inserirProdutoCombo(produtoCombo)
 
                                     if(!resultInsertCombo.status){
+<<<<<<< HEAD
                                         return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+=======
+                                        return message.SUCCESS_CREATED_ITEM_WARNING // 201 com alerta de dados não inseridos
+>>>>>>> back-end-tabelas
                                     }
                                 }
                             }
@@ -199,7 +223,7 @@ const listarProduto = async function(){
 
                 return message.DEFAULT_MESSAGE //200 
 
-            }else return message.ERROR_NOT_FOUND //404  
+            }else return message.ERROR_NOT_FOUND //404   
 
         }else return message.ERROR_INTERNAL_SERVER_MODEL //500 (model)
 
@@ -282,9 +306,16 @@ const excluirByIdProduto = async function(id){
 
 const validarDados = async function(produto) {
     let message = JSON.parse(JSON.stringify(config_message))
+<<<<<<< HEAD
 
     if (!produto.nome || produto.nome.length > 255) {
         message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO (Tamanho máximo 255)'
+=======
+    const descricaoParaValidar = produto.descricao || produto.descriçao_categoria
+
+    if (!produto.nome || produto.nome.length > 255) {
+        message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO'
+>>>>>>> back-end-tabelas
         return message.ERROR_BAD_REQUEST
     }
 
@@ -292,6 +323,7 @@ const validarDados = async function(produto) {
         message.ERROR_BAD_REQUEST.field = '[PREÇO] INVÁLIDO'
         return message.ERROR_BAD_REQUEST
     }
+<<<<<<< HEAD
 
     else if (!produto.url_imagem || produto.url_imagem.length > 255) {
         message.ERROR_BAD_REQUEST.field = '[URL_IMAGEM] INVÁLIDO (Tamanho máximo 255)'
@@ -325,10 +357,27 @@ const validarDados = async function(produto) {
     
     else if (!produto.classificacao_alimentar || produto.classificacao_alimentar.length > 50) {
         message.ERROR_BAD_REQUEST.field = '[CLASSIFICACAO_ALIMENTAR] INVÁLIDO'
+=======
+    else if (!produto.url_imagem) {
+        message.ERROR_BAD_REQUEST.field = '[URL_IMAGEM] INVÁLIDO'
+        return message.ERROR_BAD_REQUEST
+    }
+    else if (produto.disponibilidade === undefined || (produto.disponibilidade !== 0 && produto.disponibilidade !== 1)) {
+        message.ERROR_BAD_REQUEST.field = '[DISPONIBILIDADE] INVÁLIDO'
+        return message.ERROR_BAD_REQUEST
+    }
+    else if (!descricaoParaValidar || descricaoParaValidar.trim() === "") { 
+        message.ERROR_BAD_REQUEST.field = '[DESCRICAO] INVÁLIDO'
+>>>>>>> back-end-tabelas
         return message.ERROR_BAD_REQUEST
     }
 
     else{
+<<<<<<< HEAD
+=======
+        produto.descricao = descricaoParaValidar
+        console.log(descricaoParaValidar)
+>>>>>>> back-end-tabelas
         return false
     } 
 }

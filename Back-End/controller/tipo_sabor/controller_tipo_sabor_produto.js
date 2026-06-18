@@ -163,7 +163,11 @@ const buscarProdutoIdTipoSabor = async function(idTipoSabor){
 
         } else {
 
+<<<<<<< HEAD
             let result = await tipoSaborProdutoDAO.selectProdutosByIdTipoSabor(idTipoSabor)
+=======
+            let result = await tipoSaborProdutoDAO.selectProdutoByIdTipoSabor(idTipoSabor)
+>>>>>>> back-end-tabelas
 
             if(result){
 
@@ -201,7 +205,11 @@ const buscarTipoSaborIdProduto = async function(idProduto){
 
         } else {
 
+<<<<<<< HEAD
             let result = await tipoSaborProdutoDAO.selectTiposSaborByIdProduto(idProduto)
+=======
+            let result = await tipoSaborProdutoDAO.selectTipoSaborByIdProduto(idProduto)
+>>>>>>> back-end-tabelas
 
             if(result){
 
@@ -240,9 +248,15 @@ const excluirTipoSaborProduto = async function(id){
 
             if(result){
 
+<<<<<<< HEAD
                 message.DEFAULT_MESSAGE.status      = message.SUCCESS_DELETE_ITEM.status
                 message.DEFAULT_MESSAGE.status_code = message.SUCCESS_DELETE_ITEM.status_code
                 message.DEFAULT_MESSAGE.message     = message.SUCCESS_DELETE_ITEM.message
+=======
+                message.DEFAULT_MESSAGE.status      = message.SUCCESS_DELETED_ITEM.status
+                message.DEFAULT_MESSAGE.status_code = message.SUCCESS_DELETED_ITEM.status_code
+                message.DEFAULT_MESSAGE.message     = message.SUCCESS_DELETED_ITEM.message
+>>>>>>> back-end-tabelas
 
                 return message.DEFAULT_MESSAGE
 
@@ -259,16 +273,28 @@ const excluirTipoSaborProduto = async function(id){
     }
 }
 
+<<<<<<< HEAD
 // função para excluir os tipos de sabor relacionados com o produto
 const excluirTiposSaborIdProduto = async function(idProduto){
+=======
+// função para excluir os produtos relacionados com o tipo sabor
+const excluirProdutoIdTipoSabor = async function(idTipoSabor){
+>>>>>>> back-end-tabelas
     let message = JSON.parse(JSON.stringify(config_message))
 
     try {
 
+<<<<<<< HEAD
         let result = await tipoSaborProdutoDAO.deleteTiposSaborByIdProduto(idProduto)
 
         if(result)
             return message.SUCCESS_DELETE_ITEM
+=======
+        let result = await tipoSaborProdutoDAO.deleteProdutoByIdTipoSabor(idTipoSabor)
+
+        if(result)
+            return message.SUCCESS_DELETED_ITEM
+>>>>>>> back-end-tabelas
         else
             return message.ERROR_INTERNAL_SERVER_MODEL
 
@@ -303,5 +329,9 @@ module.exports = {
     buscarProdutoIdTipoSabor,
     buscarTipoSaborIdProduto,
     excluirTipoSaborProduto,
+<<<<<<< HEAD
     excluirTiposSaborIdProduto
+=======
+    excluirProdutoIdTipoSabor
+>>>>>>> back-end-tabelas
 }

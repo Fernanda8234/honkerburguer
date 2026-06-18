@@ -105,7 +105,11 @@ const selectTipoSaborByIdProduto = async function(idProduto){
     }
 }
 
+<<<<<<< HEAD
 const selectProdutosByIdTipoSabor = async function(idTipoSabor){
+=======
+const selectProdutoByIdTipoSabor = async function(idTipoSabor){
+>>>>>>> back-end-tabelas
     try {
         let sql = `select tbl_produto.*
                     from tbl_produto
@@ -142,9 +146,15 @@ const deleteTipoSaborProduto = async function(id){
     }
 }
 
+<<<<<<< HEAD
 const deleteTipoSaborByIdProduto = async function(idProduto){
     try {
         let sql = `delete from tbl_tipo_sabor_produto where id_produto = ${idProduto}`
+=======
+const deleteProdutoByIdTipoSabor = async function(idTipoSabor){
+    try {
+        let sql = `delete from tbl_tipo_sabor_produto where id_tipo_sabor = ${idTipoSabor}`
+>>>>>>> back-end-tabelas
 
         let result = await knexConex.raw(sql)
 
@@ -163,7 +173,13 @@ module.exports = {
     selectAllTipoSaborProduto,
     selectByIdTipoSaborProduto,
     selectTipoSaborByIdProduto,
+<<<<<<< HEAD
     selectProdutosByIdTipoSabor,
     deleteTipoSaborProduto,
     deleteTipoSaborByIdProduto
+=======
+    selectProdutoByIdTipoSabor,
+    deleteTipoSaborProduto,
+    deleteProdutoByIdTipoSabor
+>>>>>>> back-end-tabelas
 }
