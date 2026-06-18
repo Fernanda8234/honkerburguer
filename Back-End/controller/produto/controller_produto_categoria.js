@@ -240,9 +240,15 @@ const excluirProdutoCategoria = async function(id){
 
             if(result){
 
+<<<<<<< HEAD
+                message.DEFAULT_MESSAGE.status      = message.SUCCESS_DELETE_ITEM.status
+                message.DEFAULT_MESSAGE.status_code = message.SUCCESS_DELETE_ITEM.status_code
+                message.DEFAULT_MESSAGE.message     = message.SUCCESS_DELETE_ITEM.message
+=======
                 message.DEFAULT_MESSAGE.status      = message.SUCCESS_DELETED_ITEM.status
                 message.DEFAULT_MESSAGE.status_code = message.SUCCESS_DELETED_ITEM.status_code
                 message.DEFAULT_MESSAGE.message     = message.SUCCESS_DELETED_ITEM.message
+>>>>>>> back-end-tabelas
 
                 return message.DEFAULT_MESSAGE
 
@@ -268,7 +274,11 @@ const excluirCategoriasIdProduto = async function(idProduto){
         let result = await produtoCategoriaDAO.deleteCategoriasByIdProduto(idProduto)
 
         if(result)
+<<<<<<< HEAD
+            return message.SUCCESS_DELETE_ITEM
+=======
             return message.SUCCESS_DELETED_ITEM
+>>>>>>> back-end-tabelas
         else
             return message.ERROR_INTERNAL_SERVER_MODEL
 

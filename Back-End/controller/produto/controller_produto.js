@@ -45,7 +45,11 @@ const inserirNovoProduto = async function(produto, contentType){
                         let resultInsertCategoria = await controller_produto_categoria.inserirProdutoCategoria(produtoCategoria)
 
                         if(!resultInsertCategoria.status){
+<<<<<<< HEAD
+                            return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+=======
                             return message.SUCCESS_CREATED_ITEM_WARNING // 201 com alerta de dados não inseridos
+>>>>>>> back-end-tabelas
                         }
                     }
                 }
@@ -60,7 +64,11 @@ const inserirNovoProduto = async function(produto, contentType){
                         let resultInsertCombo = await controller_produto_combo.inserirProdutoCombo(produtoCombo)
 
                         if(!resultInsertCombo.status){
+<<<<<<< HEAD
+                            return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+=======
                             return message.SUCCESS_CREATED_ITEM_WARNING // 201 com alerta de dados não inseridos
+>>>>>>> back-end-tabelas
                         }
                     }
                 }
@@ -111,13 +119,21 @@ const atualizarProduto = async function(produto, contentType, id){
 
                                     let produtoCategoria = {
                                         "id_produto": produto.id,
+<<<<<<< HEAD
+                                        "id_categoria": categoria.id
+=======
                                         "id_categoria": categoria.id || categoria
+>>>>>>> back-end-tabelas
                                     }
 
                                     let resultInsertCategoria = await controller_produto_categoria.inserirProdutoCategoria(produtoCategoria)
 
                                     if(!resultInsertCategoria.status){
+<<<<<<< HEAD
+                                        return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+=======
                                         return message.SUCCESS_CREATED_ITEM_WARNING // 201 com alerta de dados não inseridos
+>>>>>>> back-end-tabelas
                                     }
                                 }
                             }
@@ -131,13 +147,21 @@ const atualizarProduto = async function(produto, contentType, id){
 
                                     let produtoCombo = {
                                         "id_produto": produto.id,
+<<<<<<< HEAD
+                                        "id_combo": combo.id
+=======
                                         "id_combo": combo.id || combo
+>>>>>>> back-end-tabelas
                                     }
 
                                     let resultInsertCombo = await controller_produto_combo.inserirProdutoCombo(produtoCombo)
 
                                     if(!resultInsertCombo.status){
+<<<<<<< HEAD
+                                        return message.SUCCESS_CREATED_ITEM_WARNIRG // 201 com alerta de dados não inseridos
+=======
                                         return message.SUCCESS_CREATED_ITEM_WARNING // 201 com alerta de dados não inseridos
+>>>>>>> back-end-tabelas
                                     }
                                 }
                             }
@@ -282,16 +306,58 @@ const excluirByIdProduto = async function(id){
 
 const validarDados = async function(produto) {
     let message = JSON.parse(JSON.stringify(config_message))
+<<<<<<< HEAD
+
+    if (!produto.nome || produto.nome.length > 255) {
+        message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO (Tamanho máximo 255)'
+=======
     const descricaoParaValidar = produto.descricao || produto.descriçao_categoria
 
     if (!produto.nome || produto.nome.length > 255) {
         message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO'
+>>>>>>> back-end-tabelas
         return message.ERROR_BAD_REQUEST
     }
+
     else if (!produto.preco || isNaN(produto.preco) || produto.preco < 0) {
         message.ERROR_BAD_REQUEST.field = '[PREÇO] INVÁLIDO'
         return message.ERROR_BAD_REQUEST
     }
+<<<<<<< HEAD
+
+    else if (!produto.url_imagem || produto.url_imagem.length > 255) {
+        message.ERROR_BAD_REQUEST.field = '[URL_IMAGEM] INVÁLIDO (Tamanho máximo 255)'
+        return message.ERROR_BAD_REQUEST
+    }
+
+    else if (!produto.descricao) {
+        message.ERROR_BAD_REQUEST.field = '[DESCRICAO] INVÁLIDO'
+        return message.ERROR_BAD_REQUEST
+    }
+
+    else if (produto.disponibilidade === undefined || produto.disponibilidade === null || isNaN(produto.disponibilidade) || (produto.disponibilidade !== 0 && produto.disponibilidade !== 1)) {
+        message.ERROR_BAD_REQUEST.field = '[DISPONIBILIDADE] INVÁLIDO (Use 0 ou 1)'
+        return message.ERROR_BAD_REQUEST
+    }
+
+    else if (produto.desconto !== null && produto.desconto !== undefined && isNaN(produto.desconto)) {
+        message.ERROR_BAD_REQUEST.field = '[DESCONTO] INVÁLIDO'
+        return message.ERROR_BAD_REQUEST
+    }
+
+    else if (produto.data_inicio_campanha && isNaN(Date.parse(produto.data_inicio_campanha))) {
+        message.ERROR_BAD_REQUEST.field = '[DATA_INICIO_CAMPANHA] INVÁLIDO'
+        return message.ERROR_BAD_REQUEST
+    }
+
+    else if (produto.data_fim_campanha && isNaN(Date.parse(produto.data_fim_campanha))) {
+        message.ERROR_BAD_REQUEST.field = '[DATA_FIM_CAMPANHA] INVÁLIDO'
+        return message.ERROR_BAD_REQUEST
+    }
+    
+    else if (!produto.classificacao_alimentar || produto.classificacao_alimentar.length > 50) {
+        message.ERROR_BAD_REQUEST.field = '[CLASSIFICACAO_ALIMENTAR] INVÁLIDO'
+=======
     else if (!produto.url_imagem) {
         message.ERROR_BAD_REQUEST.field = '[URL_IMAGEM] INVÁLIDO'
         return message.ERROR_BAD_REQUEST
@@ -302,12 +368,16 @@ const validarDados = async function(produto) {
     }
     else if (!descricaoParaValidar || descricaoParaValidar.trim() === "") { 
         message.ERROR_BAD_REQUEST.field = '[DESCRICAO] INVÁLIDO'
+>>>>>>> back-end-tabelas
         return message.ERROR_BAD_REQUEST
     }
 
     else{
+<<<<<<< HEAD
+=======
         produto.descricao = descricaoParaValidar
         console.log(descricaoParaValidar)
+>>>>>>> back-end-tabelas
         return false
     } 
 }
