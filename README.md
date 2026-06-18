@@ -66,21 +66,22 @@ A proposta do projeto utiliza elementos como
 
 Front-end
 
- HTML
- CSS
- JavaScript
+ - HTML
+ - CSS
+ - JavaScript
 
 Back-end
 
- Node.js  Java Spring (confirmar)
+ - Node.js
+ - Java Spring 
 
 Banco de Dados
 
- MySQL
+ - MySQL
 
 Ferramentas
 
- Postman
+ - Postman
 
 ---
 
