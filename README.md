@@ -322,22 +322,42 @@ O desenvolvimento do projeto foi realizado utilizando a metodologia ágil, permi
 - Desenvolvimento do front-end da área do cliente e administrador;
 - Realização de testes e ajustes da aplicação.
 
+---
+
+## 📌 Requisitos do Sistema
+
 ### Requisitos Funcionais
 
-Exemplo
+- O sistema deve disponibilizar um catálogo dinâmico de produtos na Landing Page, permitindo que clientes visualizem informações como nome, descrição, preço, imagem, categoria e ingredientes.
 
- Cadastrar produtos;
- Atualizar produtos;
- Excluir produtos;
- Visualizar catálogo.
+- O cliente deve conseguir pesquisar e filtrar produtos por nome ou categoria, facilitando a navegação pelo catálogo.
+
+- Os produtos devem ser organizados por categorias temáticas, como hambúrgueres, combos e bebidas.
+
+- O sistema deve possuir uma área administrativa onde o administrador poderá realizar o gerenciamento dos produtos.
+
+- O administrador deve conseguir cadastrar, editar, atualizar e remover produtos do catálogo.
+
+- O administrador deve conseguir gerenciar categorias e informações dos produtos, mantendo o catálogo atualizado.
+
+- O sistema deve permitir autenticação de administradores para acesso ao painel administrativo.
+
+- O sistema deve apresentar mensagens de validação, sucesso e erro durante as operações realizadas.
+
 
 ### Requisitos Não Funcionais
 
-Exemplo
+- O sistema deve possuir duas interfaces independentes: uma área pública para clientes e uma área restrita para administradores.
 
- Interface responsiva;
- Organização do código;
- Segurança dos dados.
+- A aplicação deve utilizar uma API centralizada compartilhando os dados entre o catálogo do cliente e o painel administrativo.
+
+- O sistema deve utilizar autenticação segura para proteger as operações administrativas.
+
+- As interfaces devem ser responsivas, garantindo uma boa experiência em diferentes dispositivos.
+
+- O banco de dados deve possuir uma estrutura organizada, utilizando relacionamentos para manter a integridade das informações.
+
+- A aplicação deve manter a identidade visual temática de HQs/anos 80, proporcionando uma experiência diferenciada para o público.
 
 ---
 
