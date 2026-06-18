@@ -93,7 +93,7 @@ const atualizarProduto = async function(produto, contentType, id){
             let resultBuscarID = await buscarByIdProduto(id)
             
             if(resultBuscarID.status){
-                let validar = await validarDados(produto, contentType)
+                let validar = await validarDados(produto)
  
                 if(!validar){
 
@@ -111,7 +111,7 @@ const atualizarProduto = async function(produto, contentType, id){
 
                                     let produtoCategoria = {
                                         "id_produto": produto.id,
-                                        "id_categoria": categoria.id
+                                        "id_categoria": categoria.id || categoria
                                     }
 
                                     let resultInsertCategoria = await controller_produto_categoria.inserirProdutoCategoria(produtoCategoria)
@@ -131,7 +131,7 @@ const atualizarProduto = async function(produto, contentType, id){
 
                                     let produtoCombo = {
                                         "id_produto": produto.id,
-                                        "id_combo": combo.id
+                                        "id_combo": combo.id || combo
                                     }
 
                                     let resultInsertCombo = await controller_produto_combo.inserirProdutoCombo(produtoCombo)
@@ -199,7 +199,7 @@ const listarProduto = async function(){
 
                 return message.DEFAULT_MESSAGE //200 
 
-            }else return message.ERROR_NOT_FOUND //404  
+            }else return message.ERROR_NOT_FOUND //404   
 
         }else return message.ERROR_INTERNAL_SERVER_MODEL //500 (model)
 
@@ -282,53 +282,32 @@ const excluirByIdProduto = async function(id){
 
 const validarDados = async function(produto) {
     let message = JSON.parse(JSON.stringify(config_message))
+    const descricaoParaValidar = produto.descricao || produto.descriçao_categoria
 
     if (!produto.nome || produto.nome.length > 255) {
-        message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO (Tamanho máximo 255)'
+        message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO'
         return message.ERROR_BAD_REQUEST
     }
-
     else if (!produto.preco || isNaN(produto.preco) || produto.preco < 0) {
         message.ERROR_BAD_REQUEST.field = '[PREÇO] INVÁLIDO'
         return message.ERROR_BAD_REQUEST
     }
-
-    else if (!produto.url_imagem || produto.url_imagem.length > 255) {
-        message.ERROR_BAD_REQUEST.field = '[URL_IMAGEM] INVÁLIDO (Tamanho máximo 255)'
+    else if (!produto.url_imagem) {
+        message.ERROR_BAD_REQUEST.field = '[URL_IMAGEM] INVÁLIDO'
         return message.ERROR_BAD_REQUEST
     }
-
-    else if (!produto.descricao) {
+    else if (produto.disponibilidade === undefined || (produto.disponibilidade !== 0 && produto.disponibilidade !== 1)) {
+        message.ERROR_BAD_REQUEST.field = '[DISPONIBILIDADE] INVÁLIDO'
+        return message.ERROR_BAD_REQUEST
+    }
+    else if (!descricaoParaValidar || descricaoParaValidar.trim() === "") { 
         message.ERROR_BAD_REQUEST.field = '[DESCRICAO] INVÁLIDO'
         return message.ERROR_BAD_REQUEST
     }
 
-    else if (produto.disponibilidade === undefined || produto.disponibilidade === null || isNaN(produto.disponibilidade) || (produto.disponibilidade !== 0 && produto.disponibilidade !== 1)) {
-        message.ERROR_BAD_REQUEST.field = '[DISPONIBILIDADE] INVÁLIDO (Use 0 ou 1)'
-        return message.ERROR_BAD_REQUEST
-    }
-
-    else if (produto.desconto !== null && produto.desconto !== undefined && isNaN(produto.desconto)) {
-        message.ERROR_BAD_REQUEST.field = '[DESCONTO] INVÁLIDO'
-        return message.ERROR_BAD_REQUEST
-    }
-
-    else if (produto.data_inicio_campanha && isNaN(Date.parse(produto.data_inicio_campanha))) {
-        message.ERROR_BAD_REQUEST.field = '[DATA_INICIO_CAMPANHA] INVÁLIDO'
-        return message.ERROR_BAD_REQUEST
-    }
-
-    else if (produto.data_fim_campanha && isNaN(Date.parse(produto.data_fim_campanha))) {
-        message.ERROR_BAD_REQUEST.field = '[DATA_FIM_CAMPANHA] INVÁLIDO'
-        return message.ERROR_BAD_REQUEST
-    }
-    
-    else if (!produto.classificacao_alimentar || produto.classificacao_alimentar.length > 50) {
-        message.ERROR_BAD_REQUEST.field = '[CLASSIFICACAO_ALIMENTAR] INVÁLIDO'
-        return message.ERROR_BAD_REQUEST
-    }
-
     else{
+        produto.descricao = descricaoParaValidar
+        console.log(descricaoParaValidar)
         return false
     } 
 }
