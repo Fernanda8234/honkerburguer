@@ -109,17 +109,19 @@ insert into tbl_categoria (nome,
                             'Novidades.'),
                            ('Vegano',
                             'Sem origem animal.'),
-                           ('Sobremesas',
-                            'Doces.');
+                           ('Bebidas',
+                            'Beba igual um heroi.'),
+                            ('Combos',
+                            'Combe seu inimigo.');
 
 -- 5. Inserts para tbl_combo
 insert into tbl_combo (nome
                        )values
                        ('Combo Liga'),
-                       ('Combo Dinâmico'),
-                       ('Combo Vegano'),
-                       ('Combo Sobremesa'),
-                       ('Combo Família');
+                       ('Combo Justiça'),
+                       ('Combo Hulk'),
+                       ('Combo Ultimato'),
+                       ('Combo Stark');
 
 -- 7. Inserts para tbl_produto_combo
 insert into tbl_produto_combo (id_produto,

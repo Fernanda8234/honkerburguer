@@ -103,14 +103,9 @@ async function carregarCardapio() {
                 <div class="card-body" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px; height: 100%;">
                     <p style="font-size: 20px; color: #1E2E4F; margin-bottom: 15px; text-transform: uppercase; text-align: center;">${produto.nome}</p>
                     
-                    <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; max-height: 120px; width: 100%;">
-                        <img src="${caminhoFinalImagem}" alt="${produto.nome}" onerror="this.src='./img/placeholder.png';" style="max-width: 100%; max-height: 100%; object-fit: contain;">
-                    </div>
+                    <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; max-height: 120px; width: 100%;">    <img src="${caminhoFinalImagem}" alt="${produto.nome}" onerror="this.src='./img/placeholder.png';" style="max-width: 100%; max-height: 100%; object-fit: contain;"> </div>
                 </div>
-                <div class="footer-card" onclick="redirecionarDetalhes(${produto.id})">
-                    <p>Ver detalhes</p>
-                </div>
-            `
+                <div class="footer-card" onclick="redirecionarDetalhes(${produto.id})"> <p>Ver detalhes</p> </div>`
             //Adicionando o card na grid
             cardsGrid.appendChild(card)
         })
@@ -149,7 +144,7 @@ function redirecionarDetalhes(id) {
 }
 
 //Função que redireciona para tela da categoria
-function verMaisDaCategoria(categoria) {
+function verMaisDaCategoria() {
     window.location.href = `../tela-hamburguer/index.html`
 }
 

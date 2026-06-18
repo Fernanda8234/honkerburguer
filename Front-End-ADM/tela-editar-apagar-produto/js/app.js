@@ -47,8 +47,6 @@ async function carregarCategorias(idsCategoriasDoProduto) {
 
         const container = document.getElementById("section-categorias")
 
-        container.innerHTML = ""
-
         //Renderiza um checkbox para cada categoria vinda do banco
         categorias.forEach(categoria => {
             const label = document.createElement("label")

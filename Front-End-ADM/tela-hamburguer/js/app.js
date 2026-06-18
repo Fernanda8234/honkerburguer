@@ -34,7 +34,7 @@ async function carregarCardapioADM() {
         const apenasHamburguers = dadosProdutos.filter(produto => {
 
             //Pegando o nome do produto e convertendo para minúsculo
-            const nome = produto.nome_produto
+            const nome = produto.nome_categoria
                 ? produto.nome_produto.toLowerCase()
                 : ""
             
@@ -54,7 +54,7 @@ async function carregarCardapioADM() {
         //Criando o título da categoria
         const titulo = document.createElement("p")
         titulo.classList.add("category-title")
-        titulo.textContent = "HAMBURGUERS"
+        titulo.textContent = "Heróis"
 
         section.appendChild(titulo)
 
@@ -118,18 +118,10 @@ async function carregarCardapioADM() {
                     <p class="product-title">${nomeFinal}</p>
 
                     <div class="image-wrapper">
-                        <img
-                            src="${caminhoFinalImagem}"
-                            alt="${nomeFinal}"
-                            onerror="this.src='./img/placeholder.png';">
+                        <img src="${caminhoFinalImagem}" alt="${nomeFinal}" onerror="this.src='./img/placeholder.png';"> </div>
                     </div>
-                </div>
 
-                <div class="footer-card"
-                onclick="redirecionarDetalhes(${idProduto})">
-                    <p>Ver detalhes</p>
-                </div>
-            `
+                <div class="footer-card" onclick="redirecionarDetalhes(${idProduto})"> <p>Ver detalhes</p> </div>`
 
             //Adicionando o card na grid
             cardsGrid.appendChild(card)
