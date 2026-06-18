@@ -1,27 +1,14 @@
 /*********************************************************************************
-<<<<<<< HEAD
- * Objetivo: Arquivo responsável pela configuração e padronização das mensagens
- *      da API
- * Data:    11/06/2026
- * Autor:   Fernanda Mota
- * Versão:  1.11.07
-=======
  * Objetivo: Arquivo responsável pela configuração e padronização das mensagens da API
  * Data:    13/06/2026
  * Autor:   Fernanda Mota
  * Versão:  1.14.06
->>>>>>> back-end-tabelas
 *********************************************************************************/
 //Padronização de cabeçalho para retorno dos endpoints da API
 const DEFAULT_MESSAGE = {
     api_description:    'API para gerenciar o controle de uma hamburgueria',
-<<<<<<< HEAD
-    development:        'Fernanda Mota',
-    version:            '1.0.4.26',
-=======
     development:        'Arcadia System',
     version:            '1.14.06',
->>>>>>> back-end-tabelas
     status:             Boolean,
     status_code:        Number,
     response:           {}
@@ -40,13 +27,7 @@ const SUCCESS_CREATED_ITEM      = {status: true, status_code: 201, message: 'Reg
 const SUCCESS_CREATED_ITEM_WARNING  = {status: true, status_code: 201, message: 'Os dados principais foram inseridos com sucesso, porém alguns dados apresentaram problemas!'} // Mensagem de sucesso da API
 
 const SUCCESS_RESPONSE           = {status: true, status_code: 200} //retorno para GET 200
-<<<<<<< HEAD
-
 const SUCCESS_UPDATED_ITEM       = {status: true, status_code: 200, message: 'Registro atualizado com sucesso!'} //retorno para PUT 200
-
-=======
-const SUCCESS_UPDATED_ITEM       = {status: true, status_code: 200, message: 'Registro atualizado com sucesso!'} //retorno para PUT 200
->>>>>>> back-end-tabelas
 const SUCCESS_DELETED_ITEM       = {status: true, status_code: 200, message: 'Registro excluido com sucesso!'} // retorno para DELETE (200 ou 204)
 
 module.exports = {
@@ -57,11 +38,7 @@ module.exports = {
     ERROR_CONTENT_TYPE,
     ERROR_NOT_FOUND,
     SUCCESS_CREATED_ITEM,
-<<<<<<< HEAD
-    SUCCESS_CREATED_WARNING,
-=======
     SUCCESS_CREATED_ITEM_WARNING,
->>>>>>> back-end-tabelas
     SUCCESS_RESPONSE,
     SUCCESS_UPDATED_ITEM,
     SUCCESS_DELETED_ITEM
