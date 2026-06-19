@@ -88,11 +88,23 @@ Ferramentas
 ## 📁 Estrutura do Projeto
 
 ```bash
-HonkerBurger
-
-├── backend
-├── frontend
-├── database
+HONKERBURGUER
+│
+├── Back-End
+│ ├── controller
+│ ├── doc
+│ ├── links
+│ ├── model
+│ ├── node_modules
+│ ├── routes
+│ ├── app.js
+│ ├── package.json
+│ └── package-lock.json
+│
+├── Front-End
+│
+├── Front-End-ADM
+│
 └── README.md
 ```
 
