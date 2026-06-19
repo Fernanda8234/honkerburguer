@@ -284,23 +284,42 @@ A área administrativa possui acesso restrito através de
 
 ---
 
+md
 ## 🚀 Como Executar o Projeto
+
+Para executar o projeto localmente, siga os passos abaixo:
 
 1. Clonar o repositório
 
 ```bash
 git clone link-do-repositorio
+````
+
+2. Acessar a pasta do projeto
+
+```bash
+cd nome-do-projeto
 ```
 
-2. Instalar dependências
+3. Instalar as dependências
 
 ```bash
 npm install
 ```
 
-3. Configurar o banco de dados;
+4. Configurar o banco de dados
 
-4. Executar a aplicação.
+* Criar o banco de dados no MySQL;
+* Executar o script SQL disponível no projeto para criação das tabelas e inserção dos dados iniciais;
+* Verificar e configurar as informações de conexão com o banco de dados.
+
+5. Executar a aplicação
+
+```bash
+npm start
+```
+
+Após seguir esses passos, a aplicação estará disponível localmente para testes.
 
 ---
 
