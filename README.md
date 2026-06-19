@@ -87,30 +87,46 @@ Ferramentas
 
 ## 📁 Estrutura do Projeto
 
-```bash
+```
 HONKERBURGUER
 │
 ├── Back-End
-│ ├── controller
-│ ├── doc
-│ ├── links
-│ ├── model
-│ ├── node_modules
-│ ├── routes
-│ ├── app.js
-│ ├── package.json
-│ └── package-lock.json
+│   ├── controller
+│   │   ├── administrador
+│   │   ├── categoria
+│   │   ├── combo
+│   │   ├── modulo
+│   │   ├── produto
+│   │   ├── tipo_sabor
+│   │   └── vvproduto
+│   ├── doc
+│   ├── links
+│   ├── model
+│   ├── routes
+│   ├── app.js
+│   └── package.json
 │
 ├── Front-End
+│   ├── cardapio
+│   ├── categoria
+│   ├── css
+│   ├── imagens
+│   ├── produto
+│   ├── Tela-inicio
+│   ├── app.js
+│   └── index.html
 │
-├── Front-End-ADM
-│
-└── README.md
+└── Front-End-ADM
+    ├── criar_cadastro
+    ├── css
+    ├── img
+    ├── tela-adicionar-produto
+    ├── tela-categorias
+    ├── tela-editar-apagar-produto
+    ├── tela-menu
+    └── index.html
 ```
-
-(Atualizar conforme a estrutura real do projeto)
-
----
+-----
 
 ## 🔗 Rotas da API
 
