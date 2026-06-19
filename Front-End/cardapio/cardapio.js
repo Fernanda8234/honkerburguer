@@ -1,6 +1,4 @@
-'use strict'
-
-import { getProdutos } from "../app.js"
+import {getProdutos} from '../app.js'
 
 const containerProduto = document.querySelector('.grade-produtos');
 const campoBusca = document.getElementById('buscar');
@@ -24,7 +22,6 @@ const criarCardProduto = (produto) => {
     foto.onerror = function() {
         this.src = '../imagens/burguer.png'; // Substitua pelo caminho correto relativo ao HTML
     };
-
     // Nome do Produto
     const nome = document.createElement('h3');
     nome.classList.add('nome-produto');
@@ -126,6 +123,6 @@ document.querySelector('.logo').addEventListener('click', () => {
     window.location.reload();
 });
 
-document.querySelector('#cardapio').addEventListener('click', () => {
-    window.location.href= "../cardapio/cardapio.html"
+document.querySelector('#inicio').addEventListener('click', () => {
+    window.location.href= "../tela-inicio/inicio.html"
 });
