@@ -250,7 +250,7 @@ async function executarAtualizacao(event) {
         }
 
         alert("Produto atualizado com total sucesso!")
-        window.location.href = "../index.html"
+        window.location.href = "../tela-menu/index.html"
 
     } catch (error) {
         console.error("Erro na requisição PUT:", error)

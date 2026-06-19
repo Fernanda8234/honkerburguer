@@ -146,6 +146,7 @@ async function executarSalvar(event) {
         desconto:                document.getElementById("desconto").value ? parseFloat(document.getElementById("desconto").value) : null,
         data_inicio_campanha:    inputInicio ? inputInicio.replace("T", " ") + ":00" : null,
         data_fim_campanha:       inputFim    ? inputFim.replace("T", " ")    + ":00" : null,
+        blend:                   document.getElementById("blend").value ? parseInt(document.getElementById("blend").value) : null,
         categoria:               categoriasSelecionadas, 
         combo:                   combosSelecionados
     }
@@ -168,7 +169,7 @@ async function executarSalvar(event) {
         }
 
         alert("Produto inserido com total sucesso!")
-        window.location.href = "../index.html"
+        window.location.href = "../tela-menu/index.html"
 
     } catch (error) {
         console.error("Erro na requisição POST:", error)
