@@ -30,18 +30,14 @@ async function carregarCardapioADM() {
         //Entrando na estrutura do JSON e pegando a lista de produtos
         const dadosProdutos = objetoCompleto.response?.vw_produto || []
 
-        //Filtrando apenas os produtos que são hambúrgueres
-        const apenasHamburguers = dadosProdutos.filter(produto => {
+        //Filtrando apenas os produtos que são da categória lançamento
+        const apenasLancamento = dadosProdutos.filter(produto => {
 
             //Pegando o nome do produto e convertendo para minúsculo
-            const nome = produto.nome_categoria
-                ? produto.nome_produto.toLowerCase()
-                : ""
+            const categoriaDoProduto = (produto.nome_categoria || "").toUpperCase().trim()
             
             //Verificando palavras que identificam hambúrgueres
-            return nome.includes("burguer") ||
-                   nome.includes("supremo") ||
-                   nome.includes("vigilante")
+            return categoriaDoProduto === "LANÇAMENTOS"
         })
 
         //Limpando a mensagem de carregamento
@@ -54,7 +50,7 @@ async function carregarCardapioADM() {
         //Criando o título da categoria
         const titulo = document.createElement("p")
         titulo.classList.add("category-title")
-        titulo.textContent = "Heróis"
+        titulo.textContent = "Lançamentos"
 
         section.appendChild(titulo)
 
@@ -63,7 +59,7 @@ async function carregarCardapioADM() {
         cardsGrid.classList.add("cards-grid-adm")
 
         //Percorrendo apenas os hambúrgueres encontrados
-        apenasHamburguers.forEach(produto => {
+        apenasLancamento.forEach(produto => {
 
             //Criando o card individual
             const card = document.createElement("div")
@@ -143,9 +139,7 @@ async function carregarCardapioADM() {
             </div>
 
             <p class="add-text">
-                ADICIONAR
-                <br>
-                PRODUTO
+                ADICIONAR <br> PRODUTO
             </p>
         `
 
@@ -159,7 +153,7 @@ async function carregarCardapioADM() {
     } catch (error) {
 
         console.error(
-            "Erro ao processar a tela de hamburguer:",
+            "Erro ao processar a tela de Lançamentos:",
             error
         )
 

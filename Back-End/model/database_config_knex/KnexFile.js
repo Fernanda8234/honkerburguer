@@ -1,11 +1,11 @@
 module.exports = {
     development: {
-      // ⚠️ ALTERAÇÃO: Define o cliente como 'mysql2'
+      // ALTERAÇÃO: Define o cliente como 'mysql2'
       client: 'mysql2',
       connection: {
         host: 'localhost', // aonde está instalado o mysql
         user: 'root', // Substitua pelo seu usuário
-        password: '@nenapoyo8234', // Substitua pela sua senha ou pela senha do senai bcd127
+        password: 'bcd127', // Substitua pela sua senha ou pela senha do senai bcd127
         database: 'honker_burguer_db', // Substitua pelo nome do seu banco de dados
         port: 3306, // Porta padrão do MySQL
        

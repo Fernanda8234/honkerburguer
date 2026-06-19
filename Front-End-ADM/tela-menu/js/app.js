@@ -53,7 +53,7 @@ async function carregarCardapio() {
             container.innerHTML = "<p style='padding-left: 40px; font-size: 22px;'>Nenhum produto retornado pela View.</p>"
             return
         }
-
+        
         //Percorrendo todas as categorias encontradas
         menuAgrupado.forEach(secao => {
 
@@ -144,8 +144,22 @@ function redirecionarDetalhes(id) {
 }
 
 //Função que redireciona para tela da categoria
-function verMaisDaCategoria() {
-    window.location.href = `../tela-hamburguer/index.html`
+function verMaisDaCategoria(nomeCategoria) {
+   const rotas = {
+        "HERÓIS"        : "../tela-heroi/index.html",
+        "VILÕES"        : "../tela-viloes/index.html",
+        "LANÇAMENTOS"    : "../tela-lancamento/index.html",
+        "VEGANO"        : "../tela-vegano/index.html",
+        "BEBIDAS"       : "../tela-bebidas/index.html",
+        "COMBOS"        : "../tela-combos/index.html"
+    }
+    const destino = rotas[nomeCategoria.toUpperCase()]
+    
+    if (destino) {
+        window.location.href = destino
+    } else {
+        console.log("Rota não encontrada para:", nomeCategoria)
+    }
 }
 
 //Aguardando carregar todo HTML para executar a função

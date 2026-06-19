@@ -107,6 +107,6 @@ create table tbl_tipo_sabor_produto(
 	references tbl_produto(id)
 );
 
-select * from tbl_produto;
+select * from tbl_produto_combo;
 
 show tables;
