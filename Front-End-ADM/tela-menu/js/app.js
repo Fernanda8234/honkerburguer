@@ -115,7 +115,7 @@ async function carregarCardapio() {
             //Criando o botão de ver mais
             const btnVerMais = document.createElement("button")
             btnVerMais.classList.add("btn-ver-mais")
-            btnVerMais.onclick = () => verMaisDaCategoria(secao.nome)
+            btnVerMais.onclick = () => { window.location.href = `../tela-categorias/index.html?categoria=${encodeURIComponent(secao.nome)}`}
             btnVerMais.innerHTML = `
                 <img src="./img/seta-direita.png" alt="Ver Mais">
                 <span>Ver Mais</span>
