@@ -126,3 +126,7 @@ document.querySelector('.logo').addEventListener('click', () => {
 document.querySelector('#inicio').addEventListener('click', () => {
     window.location.href= "../tela-inicio/inicio.html"
 });
+
+document.querySelector('#categoria').addEventListener('click', () => {
+    window.location.href = "../categoria/categoria.html"
+})
